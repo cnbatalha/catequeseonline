@@ -11,7 +11,7 @@
           <!-- Jumbotron -->
               <div class="jumbotron">
                 <h1>Catequese Online</h1>
-                <p class="lead">Gerencie a pastoral da catequese da sua comunidade cat&oacute;lica. Cadastre catequistas, catequizandos, turmas e encontros, tudo de forma digital e de maneira unificada.</p>
+                <p class="lead">Gerencie a pastoral da catequese da sua comunidade cat&oacute;lica. Cadastre catequizandos e turmas, tudo de forma digital e de maneira unificada.</p>
                 <p><a class="btn btn-lg btn-primary" href="<?=URL.'login'?>" role="button">Login</a></p>
               </div>
         
@@ -19,7 +19,7 @@
               <div class="row">
                 <div class="col-lg-4">
                   <h2>Dados unificados</h2>
-                  <p>Reduza os formul&aacute;rios de papel, tenha todos os dados importantes das turmas, catequizandos, catequistas e encontros num mesmo local evitando assim informa&ccedil;&otilde;es repetidas e espalhadas pela comunidade.</p>
+                  <p>Reduza os formul&aacute;rios de papel, tenha todos os dados importantes das turmas e catequizandos num mesmo local evitando assim informa&ccedil;&otilde;es repetidas e espalhadas pela comunidade.</p>
                 </div>
                 <div class="col-lg-4">
                   <h2>Facilidade</h2>
