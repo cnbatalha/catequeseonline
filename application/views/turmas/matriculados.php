@@ -12,7 +12,7 @@
       <!-- Begin page content -->
       <div class="container">
         <div class="page-header">
-          <h2>Matriculados na turma "<?=$catequizandos[0]['descricao']?>"</h2>
+          <h3>Matriculados na turma "<?=$catequizandos[0]['descricao']?>"</h3>
         </div>
 
         <div class="table-responsive">

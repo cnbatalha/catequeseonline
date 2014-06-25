@@ -1,3 +1,15 @@
+
+
+--
+-- Database: `catequeseonline`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `catequizandos`
+--
+
 CREATE TABLE IF NOT EXISTS `catequizandos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `comunidade` int(11) NOT NULL,
@@ -28,12 +40,21 @@ CREATE TABLE IF NOT EXISTS `catequizandos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
+--
+-- Extraindo dados da tabela `catequizandos`
+--
+
 INSERT INTO `catequizandos` (`id`, `comunidade`, `nome`, `nome_pai`, `nome_mae`, `telefone_pai`, `telefone_mae`, `email_pai`, `email_mae`, `endereco`, `data_nascimento`, `batizado`, `data_batismo`, `paroquia_batismo`, `nome_padrinho`, `nome_madrinha`, `eucaristia`, `data_eucaristia`, `paroquia_eucaristia`, `data_inscricao`, `coroinha`, `pais_reunioes`, `pais_atividades`, `frequencia_missa`, `mora_pais`, `pais_casados`) VALUES
 (1, 1, 'Jorge neto2', 'Jorge pai', 'mae do jorge', 'xxxxxxx', '1231231231', 'aodkaosd@aoskdoa.com', NULL, 'asdasdasdasdasd', '2014-03-05', 0, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2014-06-18', 1, 1, 1, 'Sempre', 1, 1),
 (2, 1, 'Filipe Marques', 'José Mauro', 'aureni', '1231231', '123123', NULL, NULL, 'asdasdasd', '2004-01-02', 0, '2004-01-15', NULL, NULL, NULL, 0, '2004-01-22', NULL, '2014-06-22', 1, 0, 0, 'Sempre', 0, 0),
 (3, 1, 'Filipe Marques', '0', '0', '1231231', '123123', '', '', 'asdasdasd', '0000-00-00', 0, '0000-00-00', '0', '', '', 0, '0000-00-00', '', '2014-06-22', 1, 0, 0, '', 0, 0),
 (4, 1, 'Maura Marques', 'José Mauro', 'Aureni Marques', '2123123', '12312312', '', '', 'asdasdasd', '0000-00-00', 1, '0000-00-00', '', '', '', 0, '0000-00-00', '', '2014-06-24', 0, 0, 0, 'Sempre', 0, 0);
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `comunidade`
+--
 
 CREATE TABLE IF NOT EXISTS `comunidade` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -50,9 +71,38 @@ CREATE TABLE IF NOT EXISTS `comunidade` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
+--
+-- Extraindo dados da tabela `comunidade`
+--
 
 INSERT INTO `comunidade` (`id`, `nome`, `email`, `telefone`, `catequista`, `endereco`, `bairro`, `cidade`, `estado`, `data_cadastro`, `senha`) VALUES
 (1, 'Jesus de Nazaré', 'nn@gmail.com', '92 9111-1111', 'Nairam Salazar', 'Conjunto manauense rua F sem numero', 'Nossa senhora das graças', 'Manaus', 'AM', '2014-06-21', '81dc9bdb52d04dc20036dbd8313ed055');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `matriculados`
+--
+
+CREATE TABLE IF NOT EXISTS `matriculados` (
+  `turma` int(11) NOT NULL,
+  `catequizando` int(11) NOT NULL,
+  `atual` tinyint(1) NOT NULL,
+  `data_matricula` date NOT NULL,
+  PRIMARY KEY (`turma`,`catequizando`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `matriculados`
+--
+
+INSERT INTO `matriculados` (`turma`, `catequizando`, `atual`, `data_matricula`) VALUES
+(1, 1, 0, '2014-06-25'),
+(1, 2, 1, '2014-06-25'),
+(1, 3, 1, '2014-06-25'),
+(1, 4, 0, '2014-06-25'),
+(2, 1, 1, '2014-06-25'),
+(2, 4, 1, '2014-06-25');
 
 -- --------------------------------------------------------
 
