@@ -65,6 +65,23 @@ class Catequizandos_model extends CI_Model {
 		}
 		return $dados;
 	}
+	
+	public function getHistorico($id) {
+		$dados = array();
+		$id_comunidade = $this->session->userdata('id_comunidade');
+		$this->db->select('catequizandos.nome,matriculados.data_matricula, turmas.descricao, matriculados.atual');
+		$this->db->from('matriculados');
+		$this->db->join('catequizandos', 'catequizandos.id = matriculados.catequizando');
+		$this->db->join('turmas', 'turmas.id = matriculados.turma');
+		$this->db->where('catequizandos.id',$id);
+		$this->db->where('catequizandos.comunidade',$id_comunidade);
+		$this->db->order_by('matriculados.atual', 'desc'); 
+		$query = $this->db->get();
+		foreach($query->result() as $row) {
+			$dados[] = get_object_vars($row);
+		}
+		return $dados;
+	}
     
 }
 ?>

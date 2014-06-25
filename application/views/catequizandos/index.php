@@ -41,6 +41,7 @@
                <th>ID</th>
                <th>Nome</th>
                <th>Telefone do Pai</th>
+               <th>Hist&oacute;rico</th>
              </tr>
            </thead>
            <tbody>
@@ -52,6 +53,7 @@
                     <td><?=$cat['id']?></td>
                     <td><a href="<?=URL.'catequizandos/formulario/'.$cat['id']?>"><?=$cat['nome']?></a></td>
                     <td><?=$cat['telefone_pai']?></td>
+                    <td><a href="<?=URL.'catequizandos/historico/'.$cat['id']?>">Ver hist&oacute;rico</a></td>
                   </tr>
                 <?php endforeach; ?>
            <?php endif; ?>

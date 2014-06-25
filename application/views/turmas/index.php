@@ -20,6 +20,9 @@
             <div class="col-md-2">
               <input type="button" onclick="location.href='<?=URL.'turmas/formulario'?>'" value="Cadastrar" class="btn btn-primary">
             </div>
+            <div class="col-md-4">
+              <input type="submit" onclick="location.href='<?=URL.'turmas/matricular'?>'" value="Fazer matr&iacute;cula" class="btn btn-success">
+            </div>
         </div><br>
 
         <div class="table-responsive">
@@ -45,7 +48,7 @@
                     <td><?=$tur['sala']?></td>
                     <td><?=$tur['horario']?></td>
                     <td><?=$tur['dia_semana']?></td>
-                    <td><a href="/turmas/matriculados/{{ tur.id }}/">Ver matriculados</a></td>
+                    <td><a href="<?=URL.'turmas/matriculados/'.$tur['id']?>">Ver matriculados</a></td>
                   </tr>
                <?php endforeach; ?>
            <?php endif; ?>

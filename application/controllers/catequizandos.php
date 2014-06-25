@@ -31,5 +31,10 @@ class Catequizandos extends CI_Controller {
 		
 	}
 	
+	public function historico($id) {
+		$dados['turmas'] = $this->catequizandos_model->getHistorico($id);
+		$this->load->view('catequizandos/historico',$dados);
+	}
+	
 }
 

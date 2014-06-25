@@ -30,6 +30,23 @@ class Turmas extends CI_Controller {
 		}
 	}
 	
+	public function matricular() {
+		if(isset($_POST['submit'])) {
+			$this->turmas_model->matricular();
+			redirect('turmas');
+		} else {
+			$this->load->model('catequizandos_model');
+			$dados['turmas'] = $this->turmas_model->getAll();
+			$dados['catequizandos'] = $this->catequizandos_model->getAll();
+			$this->load->view('turmas/matricular',$dados);
+		}
+	}
+	
+	public function matriculados($id_turma) {
+		$dados['catequizandos'] = $this->turmas_model->getMatriculados($id_turma);
+		$this->load->view('turmas/matriculados',$dados);
+	}
+	
 }
 
 ?>	
