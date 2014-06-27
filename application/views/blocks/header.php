@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Sistema de Catequese</title>
+    <title>Catequese Online</title>
 
         <!-- Meta -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="keywords" content="catequese, catolica, igreja, catecismo, cristianismo, pastoral">	
+	<meta name="description" content="Gerencie a pastoral da catequese da sua comunidade cat&oacute;lica. Cadastre catequizandos e turmas, tudo de forma digital e de maneira unificada. Tudo Gr&aacute;tis!">
 
     <!-- CSS -->
     <link href="<?=URL_STATIC?>css/bootstrap.min.css" rel="stylesheet">

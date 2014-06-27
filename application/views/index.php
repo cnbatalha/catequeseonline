@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-lg-4">
                   <h2>Facilidade</h2>
-                  <p>N&atilde;o &eacute; preciso ter nenhum software instalado em algum computador, todos os dados s&atilde;o armazenados no site de forma segura. Acesse utilizando computador, celular ou tablet.</p>
+                  <p>N&atilde;o &eacute; preciso ter nenhum software instalado em algum computador, todos os dados s&atilde;o armazenados no site de forma segura. Acesse utilizando computador, celular ou tablet. E o melhor, &eacute; gr&aacute;tis!</p>
                </div>
                 <div class="col-lg-4">
                   <h2>Como funciona</h2>

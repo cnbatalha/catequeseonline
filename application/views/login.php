@@ -8,7 +8,7 @@
     <div class="container">
 
       <form class="form-signin" action="" method="post">
-        <h2 class="form-signin-heading">Sistema de Catequese</h2><br>
+        <h2 class="form-signin-heading">Login</h2><br>
         <?php if(!empty($error)): ?>
                 <p class="text-danger">E-mail/Senha errada</p><br>
         <?php endif; ?>

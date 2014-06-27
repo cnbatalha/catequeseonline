@@ -9,7 +9,7 @@
       <!-- Begin page content -->
       <div class="container">
           <div class="page-header">
-            <h1>Gerenciador de catequese</h1>
+            <h1>Catequese Online</h1>
             <p class="lead">Perguntas Frequentes</p>
           </div>
 
