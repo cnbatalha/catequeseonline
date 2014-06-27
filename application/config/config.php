@@ -14,8 +14,11 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/catequeseonline/';
-
+if($_SERVER['SERVER_NAME'] == 'localhost') {
+	$config['base_url']	= 'http://localhost/catequeseonline/';
+} else {
+	$config['base_url']	= 'http://www.catequeseonline.com.br/';
+}
 /*
 |--------------------------------------------------------------------------
 | Index File

@@ -2,10 +2,13 @@
 
 if($_SERVER['SERVER_NAME'] == 'localhost') {
 	define('URL','http://localhost/catequeseonline/');
-	define('URL_STATIC','http://localhost/catequeseonline/static/');
 	define('PATH','C:/xampp/htdocs/catequeseonline/');
-	define('PATH_TEMPLATES',PATH.'application/views/');
+} else {
+	define('URL','http://www.catequeseonline.com.br/');
+	define('PATH','/home/u166533243/public_html/');
 }
+	define('URL_STATIC',URL.'static/');
+	define('PATH_TEMPLATES',PATH.'application/views/');
 
 /*
 |--------------------------------------------------------------------------

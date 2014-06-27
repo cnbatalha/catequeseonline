@@ -52,8 +52,13 @@ if($_SERVER['SERVER_NAME'] == 'localhost') {
 	$db['default']['hostname'] = 'localhost';
 	$db['default']['username'] = 'root';
 	$db['default']['password'] = '';
+	$db['default']['database'] = 'catequeseonline';
+} else {
+	$db['default']['hostname'] = 'mysql.hostinger.com.br';
+	$db['default']['username'] = 'u166533243_cat';
+	$db['default']['password'] = 'HDAP6K5XyX';
+	$db['default']['database'] = 'u166533243_cat';
 }
-$db['default']['database'] = 'catequeseonline';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
