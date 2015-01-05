@@ -1,8 +1,8 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 if($_SERVER['SERVER_NAME'] == 'localhost') {
-	define('URL','http://localhost/catequeseonline/');
-	define('PATH','C:/xampp/htdocs/catequeseonline/');
+	define('URL','http://localhost/projects/catequeseonline/');
+	define('PATH',$_SERVER['DOCUMENT_ROOT'].'/projects/catequeseonline/');
 } else {
 	define('URL','http://www.catequeseonline.com.br/');
 	define('PATH','/home/u166533243/public_html/');

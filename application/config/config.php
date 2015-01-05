@@ -15,7 +15,7 @@
 |
 */
 if($_SERVER['SERVER_NAME'] == 'localhost') {
-	$config['base_url']	= 'http://localhost/catequeseonline/';
+	$config['base_url']	= 'http://localhost/projects/catequeseonline/';
 } else {
 	$config['base_url']	= 'http://www.catequeseonline.com.br/';
 }

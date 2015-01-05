@@ -13,6 +13,9 @@
               <li <?php	if(strpos(current_url(),'inicio') !== false){ echo 'class="active"'; } ?>>
                 <a href="<?=URL.'inicio'?>">In&iacute;cio</a>
               </li>
+              <li <?php	if(strpos(current_url(),'catequista') !== false){ echo 'class="active"'; } ?>>
+                <a href="<?=URL.'catequista'?>">Catequista</a>
+              </li>              
               <li <?php	if(strpos(current_url(),'catequizandos') !== false){ echo 'class="active"'; } ?>>
                 <a href="<?=URL.'catequizandos'?>">Catequizandos</a>
               </li>
