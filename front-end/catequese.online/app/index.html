@@ -1,0 +1,86 @@
+<!doctype html>
+<html ng-app="catequeseonlineApp">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catequese OnLine (beta)</title>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+</head>
+<body>
+
+  <div class="container">
+    <nav ng-controller="LoginController" ng-show="auth" class="navbar navbar-default">
+      <ul class="nav nav-pills">
+        <li><a href="#/home">Home</a></li>
+        <li ng-show="false"><a href="#/login">login</a></li>
+        <li><a href="#/turmalist">Turma</a></li>
+        <li ng-show="false"><a href="#/catequista">Catequista</a></li>
+        <li><a href="#/aniversario">Aniversariantes</a></li>
+        <li><a href="#/catequizandolist">Catequizando</a></li>
+        <li ng-show="auth"><a href="" ng-click="logout()">Sair</a></li>
+      </ul>
+    </nav>
+
+    <div ng-view></div>
+
+  </div>
+
+  <hr>
+  <footer class="footer">
+    <div class="container">
+      <p class="text-muted">Paróquia Nossa Senhora da Glória</p>
+      <p>
+        <a href="paroquiansagloria.com.br">paroquiansagloria.com.br</a>
+      </p>
+    </div>
+  </footer>
+
+
+
+  <!-- build:js(.) scripts/vendor.js -->
+  <!-- bower:js -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="bower_components/angular-touch/angular-touch.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
+
+
+  <!-- Util -->
+
+  <!-- build:js({.tmp,app}) scripts/scripts.js -->
+  <script src="scripts/app.js"></script>
+  <script src="scripts/controllers/main.js"></script>
+  <script src="scripts/controllers/about.js"></script>
+
+
+  <script src="scripts/service/WebServices.js"></script>
+  <script src="scripts/service/authenticationService.js"></script>
+
+  <!-- script src="scripts/controller/appControllers.js"></script -->
+  <script src="scripts/controllers/catequizandoModule.js"></script>
+  <script src="scripts/controllers/turmaModule.js"></script>
+  <script src="scripts/controllers/authenticationModule.js"></script>
+  <script src="scripts/controllers/utilModule.js"></script>
+
+  <script src="scripts/components/paginate.js"></script>
+  
+    <!-- script src="resources/ctqonline/util/paginate.js"></script>
+    <script src="resources/ctqonline/model/catequizando.js"></script -->
+  <!-- endbuild -->
+</body>
+
+</html>
