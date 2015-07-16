@@ -22,11 +22,6 @@ public class TurmaController {
     @Autowired
     TurmaRepository turmaRepository;
 
-    // presponse.setHeader("Access-Control-Allow-Credentials", "true");
-    private static final String[] controllerHeader = { "Access-Control-Allow-Origin:*",
-	    "Access-Control-Allow-Methods:POST, GET, OPTIONS, DELETE, HEAD", "Access-Control-Max-Age:3600",
-	    "Access-Control-Allow-Headers:Origin, x-requested-with, Content-Type, Accept, Authorization" };
-
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody Collection<Turma> getList() {
 	return Lists.newArrayList(turmaRepository.findAll());

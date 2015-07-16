@@ -33,11 +33,11 @@ public class AccessFilter implements Filter {
 		"Origin, x-requested-with, Content-Type, Accept, Authorization");
 	presponse.setHeader("Accept","application/json");
 
-	HttpServletRequest httpRequest = (HttpServletRequest) request;
+	//HttpServletRequest httpRequest = (HttpServletRequest) request;
 	
-	if (httpRequest.getMethod().equalsIgnoreCase("OPTIONS")) {
-	    presponse.setStatus(200);
-	}
+	//if (httpRequest.getMethod().equalsIgnoreCase("OPTIONS")) {
+	//    presponse.setStatus(200);
+	//}
 	
 	chain.doFilter(request, response);
 

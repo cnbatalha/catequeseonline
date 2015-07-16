@@ -8,14 +8,11 @@
 
 	<security:http create-session="stateless" entry-point-ref="authenticationEntryPoint">
 
-		<security:intercept-url pattern="/catequizando/**"
-			access="ROLE_ADMIN" />
-		<security:intercept-url pattern="/catequista/**"
-			access="ROLE_ADMIN" />
+		<!-- security:intercept-url pattern="/catequizando/**" access="ROLE_ADMIN" /> <security:intercept-url 
+			pattern="/catequista/**" access="ROLE_ADMIN" / -->
 		<security:intercept-url pattern="/turma/**" access="ROLE_ADMIN" />
 
-		<security:intercept-url pattern="/login"
-			access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/login/**" access="ROLE_ADMIN" />
 
 		<security:custom-filter ref="basicAuthenticationFilter"
 			after="BASIC_AUTH_FILTER" />
@@ -25,20 +22,19 @@
 		<!-- security:http-basic / -->
 	</security:http>
 
-	<beans:bean id="corsHandler" class="catequese.online.AccessFilter" />
-	
-	
-    <beans:bean id="basicAuthenticationFilter"
-        class="org.springframework.security.web.authentication.www.BasicAuthenticationFilter">
-        <beans:property name="authenticationManager" ref="authenticationManager" />
-        <beans:property name="authenticationEntryPoint" ref="authenticationEntryPoint" />
-    </beans:bean>
+	<!-- beans:bean id="corsHandler" class="catequese.online.AccessFilter" / -->
+
+	<beans:bean id="basicAuthenticationFilter"
+		class="org.springframework.security.web.authentication.www.BasicAuthenticationFilter">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="authenticationEntryPoint" ref="authenticationEntryPoint" />
+	</beans:bean>
 
 
-    <beans:bean id="authenticationEntryPoint" 
-        class="catequese.online.security.PlainTextBasicAuthenticationEntryPoint">
-        <beans:property name="realmName" value="test.com" />
-    </beans:bean> 
+	<beans:bean id="authenticationEntryPoint"
+		class="catequese.online.security.PlainTextBasicAuthenticationEntryPoint">
+		<beans:property name="realmName" value="test.com" />
+	</beans:bean>
 
 
 	<!-- beans:bean id="restServicesEntryPoint" class="catequese.online.security.RestAuthenticationEntryPoint" 
@@ -48,12 +44,14 @@
 
 	<authentication-manager alias="authenticationManager">
 		<authentication-provider>
-			<jdbc-user-service data-source-ref="mysqlDataSource"
-				users-by-username-query="SELECT email, senha, ativo FROM usuario WHERE email = ? "
-				authorities-by-username-query="SELECT u.email, p.permissao FROM  usuario u, usuario_permissao p
-								WHERE u.id = p.usuario AND u.email = ? " />
-			<!-- ser-service> <user name="temporary" password="temporary" authorities="ROLE_ADMIN" 
-				/> <user name="user" password="user" authorities="ROLE_USER" /> </user-service -->
+			<!-- jdbc-user-service data-source-ref="mysqlDataSource" users-by-username-query="SELECT 
+				email, senha, ativo FROM usuario WHERE email = ? " authorities-by-username-query="SELECT 
+				u.email, p.permissao FROM usuario u, usuario_permissao p WHERE u.id = p.usuario AND 
+				u.email = ? " / -->
+			<user-service>
+				<user name="temporary" password="temporary" authorities="ROLE_ADMIN" />
+				<user name="user" password="user" authorities="ROLE_USER, ROLE_ADMIN" />
+			</user-service>
 		</authentication-provider>
 	</authentication-manager>
 
