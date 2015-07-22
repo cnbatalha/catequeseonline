@@ -1,5 +1,7 @@
+'use strict';
+
 function Paginate(navigation) {
-	self = this;
+	var self = this;
 
 	// funcao para nevegar
 	self.navegation = navigation;
@@ -23,7 +25,7 @@ function Paginate(navigation) {
 		}
 
 		self.numberPage = page.number;
-	}
+	};
 
 	self.prevPage = function() {
 		if (self.numberPage > 0) {

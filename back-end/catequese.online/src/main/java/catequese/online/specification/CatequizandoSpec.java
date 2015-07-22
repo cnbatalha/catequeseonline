@@ -18,54 +18,75 @@ import catequese.online.model.Catequizando;
 
 public class CatequizandoSpec {
 
-    // query by like name
-    public static Specification<Catequizando> isNameLike(final String nome) {
+	public static Sort sortDay;
 
-	return new Specification<Catequizando>() {
+	// query by like name
+	public static Specification<Catequizando> isNameLike(final String nome) {
 
-	    @Override
-	    public Predicate toPredicate(Root<Catequizando> root, CriteriaQuery<?> arg1, CriteriaBuilder builder) {
-		// TODO Auto-generated method stub
-		return builder.like(root.<String> get("nome"), nome);
-	    }
-	};
+		return new Specification<Catequizando>() {
 
-    }
+			@Override
+			public Predicate toPredicate(Root<Catequizando> root,
+					CriteriaQuery<?> arg1, CriteriaBuilder builder) {
+				// TODO Auto-generated method stub
+				return builder.like(root.<String> get("nome"), nome);
+			}
+		};
 
-    // query by active register,using field situacao
-    public static Specification<Catequizando> isAtivo() {
+	}
 
-	return new Specification<Catequizando>() {
+	// query by active register,using field situacao
+	public static Specification<Catequizando> isAtivo() {
 
-	    @Override
-	    public Predicate toPredicate(Root<Catequizando> root, CriteriaQuery<?> arg1, CriteriaBuilder builder) {
-		// TODO Auto-generated method stub
-		return builder.like(root.<String> get("situacao"), "N");
-	    }
-	};
+		return new Specification<Catequizando>() {
 
-    }
+			@Override
+			public Predicate toPredicate(Root<Catequizando> root,
+					CriteriaQuery<?> arg1, CriteriaBuilder builder) {
+				// TODO Auto-generated method stub
+				return builder.like(root.<String> get("situacao"), "N");
+			}
+		};
 
-    // query by birthday
-    public static Specification<Catequizando> isAniversario(final Integer mes) {
+	}
 
-	return new Specification<Catequizando>() {
+	// query by birthday
+	public static Specification<Catequizando> isAniversario(final Integer mes) {
 
-	    @Override
-	    public Predicate toPredicate(Root<Catequizando> root, CriteriaQuery<?> arg1, CriteriaBuilder builder) {
-		// TODO Auto-generated method stub
-		Path<Date> birthdate = root.get("nascimento");
-		Expression<Integer> mesAniversario = builder.function("month", Integer.class, birthdate);
+		return new Specification<Catequizando>() {
 
-		return builder.and(builder.equal(mesAniversario, mes), builder.isNotNull(birthdate));
-		
-	    }
-	};
+			@Override
+			public Predicate toPredicate(Root<Catequizando> root,
+					CriteriaQuery<?> query, CriteriaBuilder builder) {
 
-    }
-    
-    private Sort sortByNomeAsc() {
-	return new Sort(Sort.Direction.ASC, "nome");
-    }
-    
+				Path<Date> birthdate = root.get("nascimento");
+				Expression<Integer> mesAniversario = builder.function("month",
+						Integer.class, birthdate);
+
+				Expression<Integer> dayExpression = builder.function("day",
+						Integer.class, birthdate);
+
+				//Expression<Object> qry = builder.selectCase(mesAniversario)
+				//		.otherwise(builder.isNotNull(birthdate));
+
+				//CriteriaQuery<Object> cb = builder.createQuery().get;
+				
+				//query.where(builder.equal(mesAniversario, mes)).orderBy(
+				//		builder.asc(dayExpression));
+
+				return builder.and(builder.equal(mesAniversario, mes),
+						builder.isNotNull(birthdate));
+
+			}
+
+		};
+
+	}
+
+	public Sort sortByNomeAsc() {
+
+		return new Sort(Sort.Direction.ASC, "nome");
+	}
+
+	
 }

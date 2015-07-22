@@ -2,7 +2,7 @@
 
 var catequizandoModule = angular.module('catequizandoModule', []);
 
-catequizandoModule.controller('aniversarioController', function($scope, $http, $routeParams, webService, utilModule) {
+catequizandoModule.controller('aniversarioController', function($scope, $http, $routeParams, webService, utilService) {
 
 	$scope.registros = {};
 	$scope.mes = '';
@@ -25,7 +25,7 @@ catequizandoModule.controller('aniversarioController', function($scope, $http, $
 	
 	
 	$scope.formatData = function(data) {
-		dateFormat = new Date(data);
+		var dateFormat = new Date(data);
 		return dateFormat.toLocaleDateString();
 	};
 	

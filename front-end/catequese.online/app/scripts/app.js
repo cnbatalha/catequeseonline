@@ -37,7 +37,7 @@
     controller : 'LoginController'
   }).when('/home', {
     templateUrl : 'views/home.html',
-    controller : 'home'
+    controller : 'MainCtrl'
   })
 
   /* catequizando */

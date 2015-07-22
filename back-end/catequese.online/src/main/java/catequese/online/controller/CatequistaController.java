@@ -20,31 +20,34 @@ import com.google.common.collect.Lists;
 @RequestMapping("/catequista")
 public class CatequistaController {
 
-    @Autowired
-    CatequistaRepository catequistaRepository;
+	@Autowired
+	CatequistaRepository catequistaRepository;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody Collection<Catequista> getLista() {
+	@RequestMapping(method = RequestMethod.GET)
+	public @ResponseBody Collection<Catequista> getLista() {
 
-	return Lists.newArrayList(catequistaRepository.findAll());
-    }
+		return Lists.newArrayList(catequistaRepository.findAll());
+	}
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @ResponseBody
-    public boolean login(@RequestBody String hashLogin) {
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean login(@RequestBody String hashLogin) {
 
-	/*String login = "";// hashLogin.get("login");
-	String passwd = "";// hashLogin.get("passwd");
+		/*
+		 * String login = "";// hashLogin.get("login"); String passwd = "";//
+		 * hashLogin.get("passwd");
+		 * 
+		 * List<Catequista> list =
+		 * catequistaRepository.findAll(CatequistaSpec.login(login, passwd));
+		 */
 
-	List<Catequista> list = catequistaRepository.findAll(CatequistaSpec.login(login, passwd));*/
+		return true;
+	}
 
-	return true;
-    }
+	@RequestMapping(value = "/teste", method = RequestMethod.GET)
+	public @ResponseBody String getTeste() {
 
-    @RequestMapping(value = "/teste", method = RequestMethod.GET)
-    public @ResponseBody String getTeste() {
-
-	return "it's work!";
-    }
+		return "it's work!";
+	}
 
 }

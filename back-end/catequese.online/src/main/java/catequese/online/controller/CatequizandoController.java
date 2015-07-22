@@ -1,8 +1,10 @@
 package catequese.online.controller;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
+import org.apache.tools.ant.types.resources.selectors.Compare;
 import org.hibernate.annotations.Where;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,98 +23,126 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import catequese.online.model.Catequizando;
 import catequese.online.repository.CatequizandoRepository;
 import catequese.online.specification.CatequizandoSpec;
+
 import com.google.common.collect.Lists;
+import com.google.gwt.user.client.rpc.core.java.util.Collections;
 
 @Controller
 @RequestMapping("/catequizando")
 @Secured("ROLE_ADMIN")
 public class CatequizandoController {
 
-    @Autowired
-    CatequizandoRepository catequizandoRepository;
+	@Autowired
+	CatequizandoRepository catequizandoRepository;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody Collection<Catequizando> getList() {
+	@RequestMapping(method = RequestMethod.GET)
+	public @ResponseBody Collection<Catequizando> getList() {
 
-	return Lists.newArrayList(catequizandoRepository.findBySituacao("N", sortByNomeAsc()));
+		return Lists.newArrayList(catequizandoRepository.findBySituacao("N",
+				sortByNomeAsc()));
 
-    }
+	}
 
-    // load all register using pagination
-    @RequestMapping(value = "/page/{indexPage}/{count}", method = RequestMethod.GET)
-    public @ResponseBody Page<Catequizando> getListPage(@PathVariable("indexPage") Integer indexPage,
-	    @PathVariable("count") Integer count) {
+	// load all register using pagination
+	@RequestMapping(value = "/page/{indexPage}/{count}", method = RequestMethod.GET)
+	public @ResponseBody Page<Catequizando> getListPage(
+			@PathVariable("indexPage") Integer indexPage,
+			@PathVariable("count") Integer count) {
 
-	Page<Catequizando> page = catequizandoRepository.findAll(CatequizandoSpec.isAtivo(), new PageRequest(indexPage,
-		count, sortByNomeAsc()));
+		Page<Catequizando> page = catequizandoRepository.findAll(
+				CatequizandoSpec.isAtivo(), new PageRequest(indexPage, count,
+						sortByNomeAsc()));
 
-	return page;
-    }
+		return page;
+	}
 
-    // find catequizando by id
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public @ResponseBody Catequizando getCatequizando(@PathVariable("id") Integer id) {
-	return catequizandoRepository.findOne(id);
-    }
+	// find catequizando by id
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public @ResponseBody Catequizando getCatequizando(
+			@PathVariable("id") Integer id) {
+		return catequizandoRepository.findOne(id);
+	}
 
-    // serch catequizando by name, using pagination
-    @RequestMapping(value = "/nome/{nome}/page/{indexPage}/{count}", method = RequestMethod.GET)
-    public @ResponseBody Page<Catequizando> getCatequizandoByName(@PathVariable("nome") String nome,
-	    @PathVariable("indexPage") Integer indexPage, @PathVariable("count") Integer count) {
+	// serch catequizando by name, using pagination
+	@RequestMapping(value = "/nome/{nome}/page/{indexPage}/{count}", method = RequestMethod.GET)
+	public @ResponseBody Page<Catequizando> getCatequizandoByName(
+			@PathVariable("nome") String nome,
+			@PathVariable("indexPage") Integer indexPage,
+			@PathVariable("count") Integer count) {
 
-	return catequizandoRepository.findAll(CatequizandoSpec.isNameLike(nome + "%"), new PageRequest(indexPage,
-		count, sortByNomeAsc()));
+		return catequizandoRepository.findAll(CatequizandoSpec.isNameLike(nome
+				+ "%"), new PageRequest(indexPage, count, sortByNomeAsc()));
 
-    }
+	}
 
-    // save catequizando
-    @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody Integer add(@RequestBody Catequizando catequizando) {
-	catequizandoRepository.save(catequizando);
+	// save catequizando
+	@RequestMapping(method = RequestMethod.POST)
+	public @ResponseBody Integer add(@RequestBody Catequizando catequizando) {
+		catequizandoRepository.save(catequizando);
 
-	return 0;
-    }
+		return 0;
+	}
 
-    // remove catequizando
-    @RequestMapping(value = "/remove/{idcatequizando}", method = RequestMethod.POST)
-    public @ResponseBody Integer removeCatequizando(@PathVariable("idcatequizando") Integer idCatequizando) {
+	// remove catequizando
+	@RequestMapping(value = "/remove/{idcatequizando}", method = RequestMethod.POST)
+	public @ResponseBody Integer removeCatequizando(
+			@PathVariable("idcatequizando") Integer idCatequizando) {
 
-	Catequizando catequizando = catequizandoRepository.findOne(idCatequizando);
-	catequizando.setSituacao("N");
+		Catequizando catequizando = catequizandoRepository
+				.findOne(idCatequizando);
+		catequizando.setSituacao("N");
 
-	catequizandoRepository.save(catequizando);
-	return 0;
+		catequizandoRepository.save(catequizando);
+		return 0;
 
-    }
+	}
 
-    // remove catequizando form turma
-    @RequestMapping(value = "/removeturma/{idcatequizando}", method = RequestMethod.POST)
-    public @ResponseBody Integer removeCatequizandoTurma(@PathVariable("idcatequizando") Integer idCatequizando) {
+	// remove catequizando form turma
+	@RequestMapping(value = "/removeturma/{idcatequizando}", method = RequestMethod.POST)
+	public @ResponseBody Integer removeCatequizandoTurma(
+			@PathVariable("idcatequizando") Integer idCatequizando) {
 
-	Catequizando catequizando = catequizandoRepository.findOne(idCatequizando);
-	catequizando.setIdTurmaAtual(null);
+		Catequizando catequizando = catequizandoRepository
+				.findOne(idCatequizando);
+		catequizando.setIdTurmaAtual(null);
 
-	catequizandoRepository.save(catequizando);
+		catequizandoRepository.save(catequizando);
 
-	return 0;
-    }
+		return 0;
+	}
 
-    // birthday
-    @RequestMapping(value = "/aniversario/{mes}", method = RequestMethod.GET)
-    public @ResponseBody List<Catequizando> getCatequizandoAniversario(@PathVariable("mes") Integer mes) {
+	// birthday
+	@RequestMapping(value = "/aniversario/{mes}", method = RequestMethod.GET)
+	public @ResponseBody List<Catequizando> getCatequizandoAniversario(
+			@PathVariable("mes") Integer mes) {
 
-	return catequizandoRepository.findAll(CatequizandoSpec.isAniversario(mes));
+		List<Catequizando> lista = catequizandoRepository
+				.findAll(CatequizandoSpec.isAniversario(mes));
 
-    }
+		java.util.Collections.sort(lista, new Comparator<Catequizando>() {
+			@Override
+			public int compare(Catequizando o1, Catequizando o2) {
 
-    @RequestMapping(value = "/turma/{idturma}", method = RequestMethod.GET)
-    public @ResponseBody Collection<Catequizando> getListaTurma(@PathVariable("idturma") Integer idTurma) {
+				return (o1.getNascimento().getDate() > o2.getNascimento()
+						.getDate() ? 1 : -1);
+			}
 
-	return Lists.newArrayList(catequizandoRepository.findByIdTurmaAtual(idTurma, sortByNomeAsc()));
-    }
+		});
 
-    private Sort sortByNomeAsc() {
-	return new Sort(Sort.Direction.ASC, "nome");
-    }
+		return lista;
+
+	}
+
+	@RequestMapping(value = "/turma/{idturma}", method = RequestMethod.GET)
+	public @ResponseBody Collection<Catequizando> getListaTurma(
+			@PathVariable("idturma") Integer idTurma) {
+
+		return Lists.newArrayList(catequizandoRepository.findByIdTurmaAtual(
+				idTurma, sortByNomeAsc()));
+	}
+
+	private Sort sortByNomeAsc() {
+		return new Sort(Sort.Direction.ASC, "nome");
+	}
 
 }
