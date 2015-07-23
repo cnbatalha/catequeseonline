@@ -19,6 +19,7 @@
   'catequeseServices', 
   'catequeseUtilServices',
   'catequizandoModule',
+  'catequistaModule',
   'turmaModule', 
   'AuthController',
   'AuthService'
@@ -56,9 +57,9 @@
   })
 
   /* catequista */
-  .when('/catequista', {
+  .when('/catequistaList', {
     templateUrl : 'views/catequista/catequistaList.html',
-    controller : 'catequistaController'
+    controller : 'catequistaListController'
   })
 
   /* turma */

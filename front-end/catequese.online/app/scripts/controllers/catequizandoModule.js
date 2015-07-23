@@ -68,6 +68,8 @@ catequizandoModule.controller('aniversarioController', function($scope, $http, $
 	$scope.turmaAtual = {};
 	$scope.inputSearch = '';
 
+	$scope.statusFrequencia = ['Presente', 'Ausente'];
+
 	console.log(webService.turmas);
 
 	$scope.setPage = function(indexPage) {

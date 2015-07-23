@@ -73,14 +73,14 @@ catequeseServices.service('webService', function($http, $location, $rootScope) {
 	this.getCatequizandoNome = function(nome, index) {
 
 		return $http.get(this.urlBase + '/catequizando/nome/' + nome + '/page/' + index + '/' + countRegister).then(
-				function(value) {
-					console.log(value.data);
-					return value.data;
-				}, function(reason) {
-					console.log(reason);
-				}, function(value) {
+			function(value) {
+				console.log(value.data);
+				return value.data;
+			}, function(reason) {
+				console.log(reason);
+			}, function(value) {
 
-				});
+			});
 
 	};
 
@@ -184,6 +184,27 @@ catequeseServices.service('webService', function($http, $location, $rootScope) {
 	/* ********************************************************************** */
 	/* Catequista */
 	/* ********************************************************************** */
+
+
+	this.getCatequistaList =  function(index) {
+
+		return $http.get(this.urlBase + '/catequista/page/' + index + '/' + countRegister, {
+			headers : {
+				'Content-Type' : 'application/json; charset=UTF-8',
+				'crossDomain': true
+			}
+		}).then(function(value) {
+			console.log(value);
+			return value.data;
+		}, function(reason) {
+			console.log(reason);
+			return reason;
+		}, function(value) {
+
+		});
+
+	};
+
 
 	/* login */
 	this.login = function(login, passwd) {

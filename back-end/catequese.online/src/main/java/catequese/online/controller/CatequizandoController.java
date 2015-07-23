@@ -4,16 +4,12 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.tools.ant.types.resources.selectors.Compare;
-import org.hibernate.annotations.Where;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +21,6 @@ import catequese.online.repository.CatequizandoRepository;
 import catequese.online.specification.CatequizandoSpec;
 
 import com.google.common.collect.Lists;
-import com.google.gwt.user.client.rpc.core.java.util.Collections;
 
 @Controller
 @RequestMapping("/catequizando")
