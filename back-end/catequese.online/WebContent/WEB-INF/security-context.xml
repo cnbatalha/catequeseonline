@@ -51,6 +51,7 @@
 			<user-service>
 				<user name="temporary" password="temporary" authorities="ROLE_ADMIN" />
 				<user name="user" password="user" authorities="ROLE_USER, ROLE_ADMIN" />
+				<user name="catequista" password="catequista2015" authorities="ROLE_USER, ROLE_ADMIN" />
 			</user-service>
 		</authentication-provider>
 	</authentication-manager>

@@ -55,32 +55,25 @@ catequizandoModule.controller('aniversarioController', function($scope, $http, $
 	var controller = this;
 
 	var idCatequizando = $routeParams.id;
-	var filtro = false;
+
+	// verifica se precisa listar a turma
+	$scope.listarTurma = ($routeParams.idturma !== undefined );
+	var idTurmaList = $routeParams.idturma;
+
 	$scope.catequizando = {};
 
 	$scope.operacaoOK = false;
 	$scope.operacaoErro = false;
 
-	console.log(webService.turmas);
 	$scope.turmas = webService.turmas;
 
 	$scope.idTurma = {};
 	$scope.turmaAtual = {};
-	$scope.inputSearch = '';
 
-	$scope.statusFrequencia = ['Presente', 'Ausente'];
+	$scope.frequenciaAtual = [];
+	$scope.statusFrequencia = [{ id: 1, status: 'Presente'}, { id: 0, status: 'Ausente'}];
 
 	console.log(webService.turmas);
-
-	$scope.setPage = function(indexPage) {
-		if (filtro) {
-			fetchRegistrosNome(indexPage);
-		} else {
-			fetchRegistros(indexPage);
-		}
-	};
-
-	$scope.page = new Paginate($scope.setPage);
 
 	// localiza turma
 	var localizaTurma = function(idTurma) {
@@ -91,36 +84,25 @@ catequizandoModule.controller('aniversarioController', function($scope, $http, $
 		return $scope.turmaAtual;
 	};
 
-	$scope.registros = [];
-
-	// carrega todos os registros usando paginacao
-	var fetchRegistros = function(pageIndex) {
-
-		webService.getCatequizandoList(pageIndex).then(function(value) {
-			$scope.page.loadPage(value);
-			$scope.registros = $scope.page.content;
+	// localiza frequencia
+	var localizaFrequencia = function(idFrequencia) {
+		$scope.frequenciaAtual = $.grep($scope.statusFrequencia, function(e, i) {
+			return e.id === idFrequencia;
 		});
+		$scope.frequenciaAtual = $scope.frequenciaAtual[0];
+		return $scope.frequenciaAtual;
 	};
 
-	if (idCatequizando == undefined) {
-		$scope.catequizando = {};
-		fetchRegistros(0);
-	} else {
-		webService.getCatequizando(idCatequizando).then(function(value) {
-			$scope.catequizando = value;
-			$scope.catequizando.nascimento = new Date($scope.catequizando.nascimento);
-			localizaTurma($scope.catequizando.idTurmaAtual);
-		});
-	}
 
 	// adiciona catequizando
 	$scope.addCatequizando = function() {
 
 		this.catequizando.idTurmaAtual = $scope.turmaAtual.id;
+		this.catequizando.frequencia = $scope.frequenciaAtual.id;
 
 		webService.addCatequizando(this.catequizando).then(function(value) {
 			console.log(value);
-			$scope.operacaoOK = (value.status == 200);
+			$scope.operacaoOK = (value.status === 200);
 			$scope.operacaoErro = !$scope.operacaoOK;
 			resetForm();
 		}, function(reason) {
@@ -130,17 +112,79 @@ catequizandoModule.controller('aniversarioController', function($scope, $http, $
 		});
 	};
 
-	// busca registro de catequizandos por nome
-	$scope.buscarRegistro = function() {
-		// caso nao seja informado valor campo para pesquisa retorna todos os
-		// registros
-		if ($scope.inputSearch.length == 0) {
-			fetchRegistros(0);
-			filtro = false;
+	$scope.getTurma = function(idTurma) {
+		var loTurma = localizaTurma(idTurma);
+		if (loTurma === undefined) {
+			return '';
 		} else {
-			fetchRegistrosNome(0);
-			filtro = true;
+			return loTurma.nome;
 		}
+	};
+
+	$scope.getFrequencia = function(idFrequencia) {
+		var loFrequencia = localizaFrequencia(idFrequencia);
+		if (loFrequencia === undefined) {
+			return '';
+		} else {
+			return loFrequencia.status;
+		}
+	};
+
+	var fetchRegistro = function(id) {
+
+		webService.getCatequizando(id).then(function(value) {
+			$scope.catequizando = value;
+			$scope.catequizando.nascimento = new Date($scope.catequizando.nascimento);
+			localizaTurma($scope.catequizando.idTurmaAtual);
+			localizaFrequencia($scope.catequizando.frequencia);
+		});
+
+	};
+
+	// inicialia dados da tela
+	var resetForm = function() {
+		$scope.catequizando = {};
+		$scope.turmaAtual = {};
+	};
+
+	$scope.registros = [];
+
+	var fetchRegistrosTurma = function() {
+		webService.getTurmaCatequizandoList(idTurmaList).then(function(value) {
+			$scope.registros = value;
+			$scope.total = $scope.registros.length;
+		});
+	};
+
+	$scope.substrNome = function( nome )
+	{
+		return nome.substr(0,10) + '...';
+	};
+
+	fetchRegistro(idCatequizando);
+	
+	if ( $scope.listarTurma )
+	{
+		fetchRegistrosTurma();
+	}
+
+})
+.controller('catequizandoListController', function($scope, $http, $routeParams, webService) {
+
+	$scope.turmas = webService.turmas;
+
+	$scope.registros = [];
+
+	var filtro = false;
+	$scope.inputSearch = '';
+
+	// carrega todos os registros usando paginacao
+	var fetchRegistros = function(pageIndex) {
+
+		webService.getCatequizandoList(pageIndex).then(function(value) {
+			$scope.page.loadPage(value);
+			$scope.registros = $scope.page.content;
+		});
 	};
 
 	var fetchRegistrosNome = function(indexPage) {
@@ -159,12 +203,24 @@ catequizandoModule.controller('aniversarioController', function($scope, $http, $
 		return dateFormat.toLocaleDateString();
 	};
 
-	$scope.getTurma = function(idTurma) {
-		var loTurma = localizaTurma(idTurma);
-		if (loTurma == undefined) {
-			return '';
+	// busca registro de catequizandos por nome
+	$scope.buscarRegistro = function() {
+		// caso nao seja informado valor campo para pesquisa retorna todos os
+		// registros
+		if ($scope.inputSearch.length == 0) {
+			fetchRegistros(0);
+			filtro = false;
 		} else {
-			return loTurma.nome;
+			fetchRegistrosNome(0);
+			filtro = true;
+		}
+	};
+
+	$scope.setPage = function(indexPage) {
+		if (filtro) {
+			fetchRegistrosNome(indexPage);
+		} else {
+			fetchRegistros(indexPage);
 		}
 	};
 
@@ -175,10 +231,25 @@ catequizandoModule.controller('aniversarioController', function($scope, $http, $
 		});
 	};
 
-	// inicialia dados da tela
-	var resetForm = function() {
-		$scope.catequizando = {};
-		$scope.turmaAtual = {};
+	// localiza turma
+	var localizaTurma = function(idTurma) {
+		$scope.turmaAtual = $.grep($scope.turmas, function(e, i) {
+			return e.id === idTurma;
+		});
+		$scope.turmaAtual = $scope.turmaAtual[0];
+		return $scope.turmaAtual;
 	};
 
-});
+	$scope.getTurma = function(idTurma) {
+		var loTurma = localizaTurma(idTurma);
+		if (loTurma === undefined) {
+			return '';
+		} else {
+			return loTurma.nome;
+		}
+	};
+
+	$scope.page = new Paginate($scope.setPage);
+	$scope.buscarRegistro();
+
+})

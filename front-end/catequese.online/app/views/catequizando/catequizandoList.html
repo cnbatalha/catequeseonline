@@ -1,9 +1,8 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 
 <div class="row">
-	<div class="col-md-2"></div>
 
-	<div class="col-md-10">
+	<div class="col-md-12">
 		<div>
 			<nav class="navbar navbar-default">
 				<div class="row">
@@ -38,16 +37,18 @@
 						<th>Dt. Nascimento</th>
 						<th>Mãe</th>
 						<th>Turma</th>
+						<!-- th>Frequência</th -->
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="c in registros">
+					<tr ng-repeat="c in registros" ng-class="{'alert alert-warning': c.frequencia == 0 }" >
 						<td><a href="#/catequizando/{{c.id}}">#{{c.id}}</a></td>
 						<td>{{c.nome}}</td>
 						<td>{{formatData(c.nascimento)}}</td>
 						<td>{{c.nomeMae}}</td>
 						<td>{{getTurma(c.idTurmaAtual)}}</td>
+						<!-- td>{{getFrequencia(c.frequencia)}}</td -->
 						<td><a id="btnRemove" class="btn btn-default btn-xs"
 							ng-click="removeCatequizando(c.id)"> <span
 								class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>

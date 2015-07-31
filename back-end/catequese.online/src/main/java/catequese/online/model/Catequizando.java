@@ -43,6 +43,8 @@ public class Catequizando {
 	@JsonIgnore
 	@Column(name = "situacao_deletado")
 	private String situacao = "N";
+	
+	private Integer frequencia;
 
 	public Integer getId() {
 		return id;
@@ -170,6 +172,14 @@ public class Catequizando {
 
 	public void setSituacao(String situacao) {
 		this.situacao = situacao;
+	}
+
+	public Integer getFrequencia() {
+		return frequencia;
+	}
+
+	public void setFrequencia(Integer frequencia) {
+		this.frequencia = frequencia;
 	}
 
 }

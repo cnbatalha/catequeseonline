@@ -14,6 +14,7 @@ function($scope, $rootScope, $location, AuthenticationService) {
 
 	$scope.login = function() {
 		$scope.dataLoading = true;
+		$rootScope.userLogin = $scope.username;
 		AuthenticationService.Login($scope.username, $scope.password, function(response) {
 			if (response.data === true) {
 				AuthenticationService.SetCredentials($scope.username, $scope.password);

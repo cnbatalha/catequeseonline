@@ -42,16 +42,14 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<td>ID</td>
-								<td>Ano</td>
+								<td>Data</td>
 								<td>Nome</td>
 							</tr>						
 						</thead>
 						<tbody>
 							<tr ng-repeat="a in aniversarios">
-								<td><a href="#/turma/{{t.id}}">#{{a.id}}</a></td>
-								<td>{{a.nascimento}}</td>
-								<td>{{a.nome}}</td>
+								<td>{{formatData(a.nascimento)}}</td>
+								<td><a href="#/catequizando/{{a.id}}">{{substrNome(a.nome)}}</a></td>
 							</tr>						
 						</tbody>
 						<tfoot></tfoot>

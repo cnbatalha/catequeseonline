@@ -44,14 +44,17 @@
   /* catequizando */
   .when('/catequizandolist', {
     templateUrl : 'views/catequizando/catequizandoList.html',
-    controller : 'catequizandoController'
+    controller : 'catequizandoListController'
   }).when('/catequizando', {
     templateUrl : 'views/catequizando/catequizando.html',
     controller : 'catequizandoController'
   }).when('/catequizando/:id', {
     templateUrl : 'views/catequizando/catequizando.html',
     controller : 'catequizandoController'
-  }).when('/aniversario', {
+  }).when('/catequizandoturma/:id/:idturma', {
+    templateUrl : 'views/catequizando/catequizando.html',
+    controller : 'catequizandoController'
+  })  .when('/aniversario', {
     templateUrl : 'views/catequizando/aniversario.html',
     controller : 'aniversarioController'
   })
@@ -80,7 +83,7 @@
     /* bootbox.alert("Mensagem alerta", function(result) {
     }); */
 
-  };
+};
 
 }).controller('navigation', function($rootScope, $scope, $http, $location, webService) {
 

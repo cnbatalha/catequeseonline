@@ -58,7 +58,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="c in registros">
+							<tr ng-repeat="c in registros" ng-class="{'alert alert-warning': c.frequencia == 0 }" >
 								<td>{{c.id}}</td>
 								<td>{{c.nome}}</td>
 								<td>{{formatData(c.nascimento)}}</td>
