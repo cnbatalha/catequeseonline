@@ -46,10 +46,21 @@
  	};
 
 
-	$scope.substrNome = function( nome )
-	{
-		return nome.substr(0,20) + '...';
-	};
+ 	$scope.substrNome = function( nome )
+ 	{
+ 		return nome.substr(0,20) + '...';
+ 	};
+
+
+
+	$scope.positions = [{lat:-3.121552,lng:-60.035365}];
+
+ 	$scope.addMarker = function(event) {
+ 		var ll = event.latLng;
+ 		$scope.positions.push({lat:ll.lat(), lng: ll.lng()});
+ 	};
+
+
 
  	fetchTurmas();
  	fechAniversariantes();

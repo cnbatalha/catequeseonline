@@ -60,7 +60,15 @@
 	</div>
 </div>
 
+<div class="row" >
 
+	MAP
+	<map center="[-3.121552, -60.035365]" on-click="addMarker()">
+		<marker ng-repeat="pos in positions" position="{{pos.lat}}, {{pos.lng}}"></marker>
+	</map>
+
+
+</div>
 
 <div class="col-md-12">
 	<div class="col-md-4">

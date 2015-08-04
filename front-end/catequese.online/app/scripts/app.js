@@ -16,6 +16,7 @@
   'ngRoute',
   'ngSanitize',
   'ngTouch',
+  'ngMap',
   'catequeseServices', 
   'catequeseUtilServices',
   'catequizandoModule',
