@@ -59,3 +59,60 @@ turmaModule.controller('turmaListaController', function($scope, $http, $routePar
 		return dateFormat.toLocaleDateString();
 	}
 });
+
+turmaModule.controller('turmaMapaController', function($scope, $http, $routeParams, webService, utilService) {
+
+	var controller = this;
+	var idTurma = $routeParams.id;
+
+	$scope.turma = {};
+	$scope.turmas = webService.turmas;
+	$scope.total = 0;
+
+	$scope.registros = [];
+	$scope.positions = [];
+
+	var fetchRegistros = function() {
+		webService.getTurmaCatequizandoList(idTurma).then(function(value) {
+			$scope.registros = value;
+			$scope.total = $scope.registros.length;
+			geolocalizaTurma();
+		});
+	}
+
+	fetchRegistros();
+
+	var geolocalizaPessoa = function( endereco, nome)
+	{
+		return $http.get('http://maps.googleapis.com/maps/api/geocode/json?address='+ endereco + ' MANAUS',
+		{
+			headers : {authorization : undefined}
+		})
+		.then(function(value) {
+
+			var retorno = value.data.results[0];
+			var position = {};
+
+			position.lat = retorno.geometry.location.lat;
+			position.lng = retorno.geometry.location.lng;
+			position.title = nome;
+
+			$scope.positions.push(position)	;
+
+			return value.data;
+		});	
+	};
+
+	var geolocalizaTurma = function()
+	{
+		for (var reg in $scope.registros) {
+
+			if ( $scope.registros[reg].endereco !== undefined)	
+			{
+				geolocalizaPessoa( $scope.registros[reg].endereco, $scope.registros[reg].nome );
+
+			}
+		}
+	};
+
+});

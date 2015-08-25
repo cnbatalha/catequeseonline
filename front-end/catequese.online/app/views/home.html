@@ -64,7 +64,7 @@
 
 	MAP
 	<map center="[-3.121552, -60.035365]" on-click="addMarker()">
-		<marker ng-repeat="pos in positions" position="{{pos.lat}}, {{pos.lng}}"></marker>
+		<marker ng-repeat="pos in positions" position="{{pos.lat}}, {{pos.lng}}" title="{{pos.title}}"></marker>
 	</map>
 
 

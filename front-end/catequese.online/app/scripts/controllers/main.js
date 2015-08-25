@@ -53,7 +53,7 @@
 
 
 
-	$scope.positions = [{lat:-3.121552,lng:-60.035365}];
+	$scope.positions = [{lat:-3.121552,lng:-60.035365,title:"Paróquia Nsa. Glória"}];
 
  	$scope.addMarker = function(event) {
  		var ll = event.latLng;

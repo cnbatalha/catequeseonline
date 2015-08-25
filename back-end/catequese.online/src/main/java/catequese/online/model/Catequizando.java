@@ -30,6 +30,8 @@ public class Catequizando {
 	private String sexo;
 	private String endereco;
 	private String observacao;
+	private Double latitude;
+	private Double longitude;
 
 	@Column(name = "tel_fixo")
 	private String telCelular;
@@ -182,4 +184,21 @@ public class Catequizando {
 		this.frequencia = frequencia;
 	}
 
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
+	
 }

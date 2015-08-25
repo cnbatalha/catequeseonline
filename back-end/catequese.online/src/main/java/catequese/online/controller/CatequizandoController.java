@@ -2,12 +2,15 @@ package catequese.online.controller;
 
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Dictionary;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import catequese.online.model.Catequizando;
+import catequese.online.model.Turma;
 import catequese.online.repository.CatequizandoRepository;
+import catequese.online.repository.TurmaRepository;
 import catequese.online.specification.CatequizandoSpec;
 
 import com.google.common.collect.Lists;
@@ -29,6 +34,12 @@ public class CatequizandoController {
 
 	@Autowired
 	CatequizandoRepository catequizandoRepository;
+
+	@Autowired
+	TurmaRepository turmaRepository;
+	
+	@Autowired
+	Database database;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody Collection<Catequizando> getList() {
@@ -134,6 +145,13 @@ public class CatequizandoController {
 
 		return Lists.newArrayList(catequizandoRepository.findByIdTurmaAtual(
 				idTurma, sortByNomeAsc()));
+	}
+
+	@RequestMapping(value = "/chart/byturma", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Object chartByTurma() {
+
+		return catequizandoRepository.findGruped();
 	}
 
 	private Sort sortByNomeAsc() {

@@ -66,13 +66,13 @@ public class CatequizandoSpec {
 				Expression<Integer> dayExpression = builder.function("day",
 						Integer.class, birthdate);
 
-				//Expression<Object> qry = builder.selectCase(mesAniversario)
-				//		.otherwise(builder.isNotNull(birthdate));
+				// Expression<Object> qry = builder.selectCase(mesAniversario)
+				// .otherwise(builder.isNotNull(birthdate));
 
-				//CriteriaQuery<Object> cb = builder.createQuery().get;
-				
-				//query.where(builder.equal(mesAniversario, mes)).orderBy(
-				//		builder.asc(dayExpression));
+				// CriteriaQuery<Object> cb = builder.createQuery().get;
+
+				// query.where(builder.equal(mesAniversario, mes)).orderBy(
+				// builder.asc(dayExpression));
 
 				return builder.and(builder.equal(mesAniversario, mes),
 						builder.isNotNull(birthdate));
@@ -83,10 +83,61 @@ public class CatequizandoSpec {
 
 	}
 
+	public static Specification<Catequizando> groupByTurma(final Integer mes) {
+
+		return new Specification<Catequizando>() {
+
+			@Override
+			public Predicate toPredicate(Root<Catequizando> from,
+					CriteriaQuery<?> qry, CriteriaBuilder builder) {
+				// TODO Auto-generated method stub			
+			
+				
+				/*CriteriaQuery<Object> qryGb = builder.createQuery();
+				
+				qryGb.multiselect(qry.getSelection());
+				qryGb.groupBy(arg0)
+				
+				Expression minExpression = builder.min(from.get("pint"));
+				Path pbytePath = from.get("pbyte");
+
+				CriteriaQuery<Object> select = qry.multiselect(minExpression,
+						pbytePath);
+
+				CriteriaQuery<Object> groupBy = select.groupBy(pbytePath);
+
+				// TypedQuery<Object> typedQuery = entityManager
+				// .createQuery(select);
+				// List listActual = typedQuery.getResultList(); */
+
+				return null;
+			}
+		};
+	}
+
+	/*
+	 * Query query = entityManager.createQuery(
+	 * "select min(s.pint),s.pbyte from SimpleBean s group by s.pbyte");
+	 * 
+	 * List listExpected = query.getResultList();
+	 * 
+	 * CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+	 * CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery(); Root
+	 * from = criteriaQuery.from(SimpleBean.class);
+	 * 
+	 * Expression minExpression = criteriaBuilder.min(from.get("pint")); Path
+	 * pbytePath = from.get("pbyte"); CriteriaQuery<Object> select =
+	 * criteriaQuery.multiselect(minExpression, pbytePath);
+	 * 
+	 * CriteriaQuery<Object> groupBy = select.groupBy(pbytePath);
+	 * 
+	 * TypedQuery<Object> typedQuery = entityManager.createQuery(select); List
+	 * listActual = typedQuery.getResultList();
+	 */
+
 	public Sort sortByNomeAsc() {
 
 		return new Sort(Sort.Direction.ASC, "nome");
 	}
 
-	
 }

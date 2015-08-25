@@ -73,6 +73,9 @@
   }).when('/turma/:id', {
     templateUrl : 'views/turma/turma.html',
     controller : 'turmaListaController'
+  }).when('/turmamap/:id', {
+    templateUrl : 'views/turma/turmaMap.html',
+    controller : 'turmaMapaController'
   }).
 
   otherwise('/');

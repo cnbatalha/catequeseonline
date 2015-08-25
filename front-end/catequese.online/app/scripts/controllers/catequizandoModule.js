@@ -73,6 +73,8 @@ catequizandoModule.controller('aniversarioController', function($scope, $http, $
 	$scope.frequenciaAtual = [];
 	$scope.statusFrequencia = [{ id: 1, status: 'Presente'}, { id: 0, status: 'Ausente'}];
 
+	$scope.positions = [{lat:-3.121552,lng:-60.035365,title:""}];
+
 	console.log(webService.turmas);
 
 	// localiza turma
@@ -137,6 +139,7 @@ catequizandoModule.controller('aniversarioController', function($scope, $http, $
 			$scope.catequizando.nascimento = new Date($scope.catequizando.nascimento);
 			localizaTurma($scope.catequizando.idTurmaAtual);
 			localizaFrequencia($scope.catequizando.frequencia);
+			$scope.getGeoPosition();
 		});
 
 	};
@@ -155,6 +158,34 @@ catequizandoModule.controller('aniversarioController', function($scope, $http, $
 			$scope.total = $scope.registros.length;
 		});
 	};
+
+	$scope.getGeoPosition = function()
+	{
+		
+		return $http.get('http://maps.googleapis.com/maps/api/geocode/json?address='+ $scope.catequizando.endereco + ' MANAUS',
+		{
+			headers : {authorization : undefined}
+		})
+		.then(function(value) {
+			console.log(value.data);
+
+			var retorno = value.data.results[0];
+
+			console.log(retorno);
+
+			var position = {};
+
+			position.lat = retorno.geometry.location.lat;
+			position.lng = retorno.geometry.location.lng;
+			position.title = $scope.catequizando.nome;
+
+			$scope.positions = [];
+			$scope.positions.push(position)	;
+
+			console.log($scope.positions);
+			return value.data;
+		});	
+	}
 
 	$scope.substrNome = function( nome )
 	{
