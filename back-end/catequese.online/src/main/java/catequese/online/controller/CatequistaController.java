@@ -1,8 +1,6 @@
 package catequese.online.controller;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import catequese.online.model.Catequista;
 import catequese.online.repository.CatequistaRepository;
-import catequese.online.specification.CatequistaSpec;
 
 import com.google.common.collect.Lists;
 

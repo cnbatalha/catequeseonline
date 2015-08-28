@@ -17,7 +17,7 @@ public class CatequistaSpec {
 
 	    @Override
 	    public Predicate toPredicate(Root<Catequista> root, CriteriaQuery<?> arg1, CriteriaBuilder builder) {
-		// TODO Auto-generated method stub
+
 		return builder.and(builder.equal(root.<String> get("login"), login),
 			builder.equal(root.<String> get("senha"), passwd));
 	    }

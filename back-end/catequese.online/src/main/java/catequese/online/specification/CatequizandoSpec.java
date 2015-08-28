@@ -1,6 +1,5 @@
 package catequese.online.specification;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -9,7 +8,6 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.SingularAttribute;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -28,7 +26,7 @@ public class CatequizandoSpec {
 			@Override
 			public Predicate toPredicate(Root<Catequizando> root,
 					CriteriaQuery<?> arg1, CriteriaBuilder builder) {
-				// TODO Auto-generated method stub
+
 				return builder.like(root.<String> get("nome"), nome);
 			}
 		};
@@ -43,7 +41,7 @@ public class CatequizandoSpec {
 			@Override
 			public Predicate toPredicate(Root<Catequizando> root,
 					CriteriaQuery<?> arg1, CriteriaBuilder builder) {
-				// TODO Auto-generated method stub
+
 				return builder.like(root.<String> get("situacao"), "N");
 			}
 		};
@@ -89,8 +87,7 @@ public class CatequizandoSpec {
 
 			@Override
 			public Predicate toPredicate(Root<Catequizando> from,
-					CriteriaQuery<?> qry, CriteriaBuilder builder) {
-				// TODO Auto-generated method stub			
+					CriteriaQuery<?> qry, CriteriaBuilder builder) {	
 			
 				
 				/*CriteriaQuery<Object> qryGb = builder.createQuery();

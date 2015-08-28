@@ -2,8 +2,6 @@ package catequese.online.controller;
 
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.Dictionary;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import catequese.online.model.Catequizando;
-import catequese.online.model.Turma;
 import catequese.online.repository.CatequizandoRepository;
 import catequese.online.repository.TurmaRepository;
 import catequese.online.specification.CatequizandoSpec;
