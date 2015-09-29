@@ -31,6 +31,12 @@ turmaModule.controller('turmaListaController', function($scope, $http, $routePar
 	$scope.turmas = webService.turmas;
 	$scope.total = 0;
 
+	$scope.exportarExcel = function(e)
+	{
+		window.open('data:application/vnd.ms-excel,' + $('#dvData').html());
+    	e.preventDefault();
+	}
+
 	var localizaTurma = function(idTurma) {
 		$scope.turma = $.grep($scope.turmas, function(e, i) {
 			return e.id == idTurma;

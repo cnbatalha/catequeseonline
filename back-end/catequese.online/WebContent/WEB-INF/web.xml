@@ -4,13 +4,6 @@
 	version="3.0">
 
 	<display-name>Catequese Online - Server</display-name>
-	<!-- session-config> <session-timeout>1</session-timeout> </session-config -->
-
-	<!-- Configuration locations must consist of one or more comma- or space-delimited 
-		fully-qualified @Configuration classes. Fully-qualified packages may also be specified 
-		for component-scanning -->
-	<!-- context-param> <param-name>contextClass</param-name> <param-value> org.springframework.web.context.support.AnnotationConfigWebApplicationContext 
-		</param-value> </context-param -->
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -35,7 +28,6 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-
 	<!-- Declare a Spring MVC DispatcherServlet as usual -->
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>
@@ -46,14 +38,6 @@
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
-
-	<!-- servlet-mapping>
-		<servlet-name>default</servlet-name>
-		<url-pattern>/static/*</url-pattern>
-	</servlet-mapping -->
-	<welcome-file-list>
-		<welcome-file>static/index.html</welcome-file>
-	</welcome-file-list>
 
 	<filter>
 		<filter-name>cors</filter-name>
