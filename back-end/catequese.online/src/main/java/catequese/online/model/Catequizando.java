@@ -47,6 +47,10 @@ public class Catequizando {
 	private String situacao = "N";
 	
 	private Integer frequencia;
+	
+	public Catequizando() {
+	
+	}
 
 	public Integer getId() {
 		return id;

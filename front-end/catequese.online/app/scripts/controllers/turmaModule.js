@@ -33,9 +33,19 @@ turmaModule.controller('turmaListaController', function($scope, $http, $routePar
 
 	$scope.exportarExcel = function(e)
 	{
-		window.open('data:application/vnd.ms-excel,' + $('#dvData').html());
-    	e.preventDefault();
+		//window.open('data:application/vnd.ms-excel,' + $('dvData').html());
+    	//e.preventDefault();
+
+    	$scope.printDiv('dvData');
 	}
+
+	$scope.printDiv = function(divName) {
+	 	var printContents = document.getElementById(divName).innerHTML;
+	  	var popupWin = window.open('', '_blank', 'width=800,height=600');
+	  	popupWin.document.open();
+	  	popupWin.document.write('<html><head><link rel="stylesheet" href="styles/main.css"></head><body onload="window.print()">' + printContents + '</body></html>');
+	  	popupWin.document.close();
+	}	 
 
 	var localizaTurma = function(idTurma) {
 		$scope.turma = $.grep($scope.turmas, function(e, i) {

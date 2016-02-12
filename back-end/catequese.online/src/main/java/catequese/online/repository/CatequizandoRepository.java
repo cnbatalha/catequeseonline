@@ -19,6 +19,6 @@ public interface CatequizandoRepository extends
 
 	public Collection<Catequizando> findBySituacao(String situacao, Sort sort);
 	
-	@Query("select u.idTurmaAtual from catequizando u group by u.idTurmaAtual")
-	public List<String> findGruped();
+	//@Query("select u.idTurmaAtual from catequizando u group by u.idTurmaAtual")
+	//public List<String> findGruped();
 }

@@ -36,10 +36,19 @@
 		<div class="panel-group ">
 			<div class="panel panel-success">
 				<div class="panel-heading">
-					<h4 class="panel-title">Aniversariantes</h4>
+					<div class="row">
+						<div class="col-sx-4 col-md-4">
+							<h4 class="panel-title">Aniversariantes</h4>
+						</div>
+						<div class="col-sx-2 col-md-4 pull-right">
+							<button type="button" class="btn btn-default btn-sm">
+								<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> Star
+							</button>
+						</div>
+					</div>
 				</div>
 				<div class="panel-body">
-					<table class="table">
+					<table class="table" id="tbAniversario">
 						<thead>
 							<tr>
 								<td>Data</td>
@@ -61,13 +70,13 @@
 </div>
 
 <div class="row" >
+	<div class="col-md-12">
+		MAP
+		<map center="[-3.121552, -60.035365]" on-click="addMarker()">
+			<marker ng-repeat="pos in positions" position="{{pos.lat}}, {{pos.lng}}" title="{{pos.title}}"></marker>
+		</map>
 
-	MAP
-	<map center="[-3.121552, -60.035365]" on-click="addMarker()">
-		<marker ng-repeat="pos in positions" position="{{pos.lat}}, {{pos.lng}}" title="{{pos.title}}"></marker>
-	</map>
-
-
+	</div>
 </div>
 
 <div class="col-md-12">

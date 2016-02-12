@@ -6,15 +6,12 @@
 	<div class="col-md-9">
 
 		<div class="panel-group" id="accordion">
-			<div> 
-				<button ng-click="exportarExcel()">Exportar</button>
-			</div>
-			<div class="panel panel-default">
+			<div class="panel panel-default" id="dvData">
 				<div class="panel-heading">
-					<h4 class="panel-title">Turma : {{turma.nome}} : {{total}}</h4>
+					<h4 class="panel-title">Turma : {{turma.nome}} : {{total}} <button ng-click="exportarExcel()">Imprimir</button> </h4>
 				</div>
-				<div class="panel-body">
-					<table class="table" id="dvData">
+				<div class="panel-body" >
+					<table class="table" >
 						<tr>
 							<td>ID</td>
 							<td>Nome</td>

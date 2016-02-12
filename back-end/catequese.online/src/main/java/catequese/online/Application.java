@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 //@EnableTransactionManagement
 
 //@ComponentScan(basePackageClasses = {DefaultController.class, CatequistaRepository.class})
-public class Application extends WebMvcConfigurerAdapter {
+public class Application {
 	
 	
 }

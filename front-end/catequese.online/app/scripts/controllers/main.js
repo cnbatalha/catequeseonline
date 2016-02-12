@@ -8,7 +8,7 @@
  * Controller of the catequeseonlineApp
  */
  angular.module('catequeseonlineApp')
- .controller('MainCtrl', function ( $scope, $http, webService ) {
+ .controller('MainCtrl', function ( $scope, $http, $window, $timeout, webService, Excel ) {
 
  	this.awesomeThings = [
  	'HTML5 Boilerplate',
@@ -16,7 +16,14 @@
  	'Karma'
  	];
 
+
  	$scope.turmas = [];
+
+ 	$scope.exportToExcel=function(tableId){ 
+
+ 		var exportHref=Excel.tableToExcel(tableId,'sheet name');
+ 		$timeout(function(){location.href=exportHref;},100); 
+ 	}; 
 
  	$scope.formatData = function(data) {
  		var dateFormat = new Date(data);
@@ -53,7 +60,7 @@
 
 
 
-	$scope.positions = [{lat:-3.121552,lng:-60.035365,title:"Paróquia Nsa. Glória"}];
+ 	$scope.positions = [{lat:-3.121552,lng:-60.035365,title:"Paróquia Nsa. Glória"}];
 
  	$scope.addMarker = function(event) {
  		var ll = event.latLng;
@@ -61,10 +68,16 @@
  	};
 
 
+ 	$scope.export = function(id)
+ 	{
+ 		tableToExcel()
+ 		//window.open('data:application/vnd.ms-excel,' + $(id).html());
+   		// e.preventDefault();
+   	}
 
- 	fetchTurmas();
- 	fechAniversariantes();
+   	fetchTurmas();
+   	fechAniversariantes();
 
 
 
- });
+   });

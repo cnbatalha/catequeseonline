@@ -35,8 +35,8 @@ public class CatequizandoController {
 	@Autowired
 	TurmaRepository turmaRepository;
 	
-	@Autowired
-	Database database;
+	//@Autowired
+	//Database database;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody Collection<Catequizando> getList() {
@@ -148,7 +148,8 @@ public class CatequizandoController {
 	@ResponseBody
 	public Object chartByTurma() {
 
-		return catequizandoRepository.findGruped();
+		return null;
+		//catequizandoRepository.findGruped();
 	}
 
 	private Sort sortByNomeAsc() {

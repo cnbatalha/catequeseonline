@@ -34,8 +34,7 @@ function($scope, $rootScope, $location, AuthenticationService) {
 
 	if ($scope.auth !== true) {
 		AuthenticationService.ClearCredentials();
-		$location.path('/login');
-
+		//$location.path('/login');
 	}
 
 });
