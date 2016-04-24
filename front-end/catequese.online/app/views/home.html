@@ -1,0 +1,96 @@
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+<div class="row" >
+	<div class="col-md-6">
+		<div class="panel-group ">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h4 class="panel-title">Turmas</h4>
+				</div>
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<td>ID</td>
+								<td>Ano</td>
+								<td>Nome</td>
+							</tr>						
+						</thead>
+						<tbody>
+							<tr ng-repeat="t in turmas">
+								<td><a href="#/turma/{{t.id}}">#{{t.id}}</a></td>
+								<td>{{t.ano}}</td>
+								<td>{{t.nome}}</td>
+							</tr>						
+						</tbody>
+						<tfoot></tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-md-6">
+
+		<div class="panel-group ">
+			<div class="panel panel-success">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-sx-4 col-md-4">
+							<h4 class="panel-title">Aniversariantes</h4>
+						</div>
+						<div class="col-sx-2 col-md-4 pull-right">
+							<button type="button" class="btn btn-default btn-sm">
+								<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> Star
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table class="table" id="tbAniversario">
+						<thead>
+							<tr>
+								<td>Data</td>
+								<td>Nome</td>
+							</tr>						
+						</thead>
+						<tbody>
+							<tr ng-repeat="a in aniversarios">
+								<td>{{formatData(a.nascimento)}}</td>
+								<td><a href="#/catequizando/{{a.id}}">{{substrNome(a.nome)}}</a></td>
+							</tr>						
+						</tbody>
+						<tfoot></tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row" >
+	<div class="col-md-12">
+		MAP
+		<map center="[-3.121552, -60.035365]" on-click="addMarker()">
+			<marker ng-repeat="pos in positions" position="{{pos.lat}}, {{pos.lng}}" title="{{pos.title}}"></marker>
+		</map>
+
+	</div>
+</div>
+
+<div class="col-md-12">
+	<div class="col-md-4">
+		<h4 align="center">Catequizandos</h4>
+		<p>Cadastro e gerenciamento de catequizandos, design intuitivo e
+			moderno.</p>
+		</div>
+		<div class="col-md-4">
+			<h4 align="center">Catequistas</h4>
+			<p>Cadastro e gerenciamento de catequistas, gerenciamento de
+				turmas on-line, desing compitível para acesso mobile</p>
+			</div>
+		</div>
+	</div>
+</div>
+

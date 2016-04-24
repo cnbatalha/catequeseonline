@@ -1,0 +1,45 @@
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+<div class="row">
+	<div class="col-md-4">
+		<div class="panel-group">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">Turmas</h4>
+				</div>
+				<div class="panel-body">
+					<form class="form-inline">
+						<div>
+							<table class="table">
+								<tbody>
+									<tr ng-repeat="t in turmas">
+										<td><a href="#/turmamap/{{t.id}}">{{t.nome}}</a></td>
+									</tr>									
+								</tbody>
+							</table>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-8">
+
+		<div class="panel-group" id="accordion">
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">Localização</h4>
+				</div>
+				<div class="panel-body">
+					<map center="[-3.121552, -60.035365]" on-click="addMarker()">
+						<marker ng-repeat="pos in positions" position="{{pos.lat}}, {{pos.lng}}" title="{{pos.title}}"></marker>
+					</map>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</div>
