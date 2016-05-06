@@ -1,5 +1,6 @@
 package catequese.online.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,13 +10,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.sistematic.lib.model.ModelInterface;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "catequista")
-public class Catequista {
+public class Catequista implements Serializable, ModelInterface<Integer>  {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String nome;
@@ -74,5 +82,10 @@ public class Catequista {
     public void setEmail(String email) {
 	this.email = email;
     }
+
+	@Override
+	public Integer getObjectID() {
+		return this.id;
+	}
 
 }
