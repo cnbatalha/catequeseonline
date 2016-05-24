@@ -1,11 +1,9 @@
 package catequese.online.repository;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import catequese.online.model.Catequizando;

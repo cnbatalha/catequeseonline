@@ -16,39 +16,83 @@
 <body>
 
   <div class="col-md-12">
-    <nav ng-controller="LoginController" ng-show="auth" class="navbar navbar-default">
-      <ul class="nav nav-pills">
-        <li><a href="#/home">Home</a></li>
-        <li ng-show="false"><a href="#/login">login</a></li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Turma<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a>Novo</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#/turmalist">Turma</a></li>
-            <li><a href="#/turmamap/0">Mapa</a></li>
-          </ul>
-        </li>          
-        <li><a href="#/catequistaList">Catequista</a></li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catequizando <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a>Novo</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#/catequizandolist">Catequizandos</a></li>
-            <li><a href="#/aniversario">Aniversariantes</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#/aniversario">Frequência</a></li>
-          </ul>
-        </li>
-        <li ng-show="auth"><a href="" ng-click="logout()">Sair</a></li>
-        <li>Olá, {{userLogin}}</li>
-      </ul>
-    </nav>
+    <div class="row">
+      <nav ng-controller="LoginController" ng-show="auth" class="navbar navbar-default">
+        <ul class="nav nav-pills">
+          <li><a href="#/home">Home</a></li>
+          <li ng-show="false"><a href="#/login">login</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Turma<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a>Novo</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#/turmalist">Turma</a></li>
+              <li><a href="#/turmamap/0">Mapa</a></li>
+            </ul>
+          </li>          
+          <li><a href="#/catequistaList">Catequista</a></li>
+          <li><a href="#/areaList">Area</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catequizando <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a>Novo</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#/catequizandolist">Catequizandos</a></li>
+              <li><a href="#/aniversario">Aniversariantes</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#/aniversario">Frequência</a></li>
+            </ul>
+          </li>
+          <li ng-show="auth"><a href="" ng-click="logout()">Sair</a></li>
+          <li>Olá, {{userLogin}}</li>
+        </ul>
+      </nav>
+    </div>
 
-    <div ng-view></div>
+    <div class="row">
+      <div ng-controller="LoginController" ng-show="auth" class="col-md-2">
+        <div class="btn-group-vertical">          
+          <ul class="nav nav-pills nav-stacked">
+            <li role="presentation"><a href="#/turmalist">Turma</a></li>
+            <li role="presentation"><a href="#/catequizandolist">Catequizandos</a></li>
+
+          </ul>
+          <button type="button" class="btn btn-default"><a href="#/home">Home</a></button>
+          <li ng-show="false"><a href="#/login">login</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Turma<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a>Novo</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#/turmalist">Turma</a></li>
+              <li><a href="#/turmamap/0">Mapa</a></li>
+            </ul>
+          </li>          
+          <li><a href="#/catequistaList">Catequista</a></li>
+          <li><a href="#/areaList">Area</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catequizando <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a>Novo</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#/catequizandolist">Catequizandos</a></li>
+              <li><a href="#/aniversario">Aniversariantes</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#/aniversario">Frequência</a></li>
+            </ul>
+          </li>
+          <li ng-show="auth"><a href="" ng-click="logout()">Sair</a></li>
+          <li>Olá, {{userLogin}}</li>
+        </div>    
+      </div>
+
+      <div class="col-md-10">
+        <div ng-view></div>    
+      </div>
+    </div>  
+    
   </div>
-
+  
   <hr>
   <footer class="footer">
     <div class="container">
@@ -58,8 +102,6 @@
       </p>
     </div>
   </footer>
-
-
 
   <!-- build:js(.) scripts/vendor.js -->
   <!-- bower:js -->
@@ -72,6 +114,7 @@
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
   <script src="bower_components/angular-touch/angular-touch.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -91,6 +134,10 @@
   <script src="scripts/service/WebServices.js"></script>
   <script src="scripts/service/authenticationService.js"></script>
   <script src="scripts/service/export.js"></script>
+  <script src="scripts/service/TurmaService.js"></script>
+  <script src="scripts/service/AreaService.js"></script>
+  <script src="scripts/service/CatequistaService.js"></script>
+  <script src="scripts/service/CatequizandoService.js"></script>
 
   <!-- script src="scripts/controller/appControllers.js"></script -->
   <script src="scripts/controllers/catequizandoModule.js"></script>
@@ -100,7 +147,7 @@
   <script src="scripts/controllers/utilModule.js"></script>
 
   <script src="scripts/components/paginate.js"></script>
-   <!-- endbuild -->
+  <!-- endbuild -->
   
 
 </body>

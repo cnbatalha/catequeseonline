@@ -6,8 +6,9 @@ angular.module('AuthController', [])
 
 function($scope, $rootScope, $location, AuthenticationService) {
 	
-	$rootScope.serviceName = '/catequese-online';
+	$rootScope.serviceName = '/catequese-online-2';
 	$rootScope.urlBase = 'http://sistematic.serveftp.net:8080' + $rootScope.serviceName;				
+	//$rootScope.urlBase = 'http://localhost:8080' + $rootScope.serviceName;				
 	 
 	// reset login status
 	AuthenticationService.ClearCredentials();

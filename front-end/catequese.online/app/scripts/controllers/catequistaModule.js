@@ -28,4 +28,9 @@ catequizandoModule.controller('catequistaListController', function($scope, $http
 
 	fetchRegistros(0);
 
+})
+.controller('catequistaController', function($scope, $http, $routeParams, webService) {
+
+	
+
 });

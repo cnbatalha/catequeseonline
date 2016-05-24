@@ -1,32 +1,87 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 
 <div class="row">
-	<div class="col-md-3"></div>
 
-	<div class="col-md-9">
+	<div class="col-md-12">
+		<div>
+			<nav class="navbar navbar-default">
+				<div class="row">
+					<div class="col-sx-4 col-md-4">
+						<ul class="nav navbar-nav">
+							<li><a ng-click="open()" class="btn">Adicionar</a></li>
+						</ul>
+						<ul class="nav navbar-nav">
+							<li><a ng-click="exportarExcel()" class="btn ">Imprimir</a></li>
+						</ul>						
+					</div>
+					<!--div class="col-sx-2 col-md-4 pull-right">
+						<form class="navbar-form" role="search"
+							ng-submit="buscarRegistro()">
+							<div class="input-group">
+								<input type="text" class="form-control" ng-model="inputSearch"
+									placeholder="Search" name="q">
+								<div class="input-group-btn">
+									<button class="btn btn-default" type="submit">
+										<i class="glyphicon glyphicon-search"></i>
+									</button>
+								</div>
+							</div>
+						</form>
+					</div -->
+				</div>
+			</nav>
+		</div>
+	</div>
 
-		<div class="panel-group" id="accordion">
-			<div class="panel panel-default" id="dvData">
-				<div class="panel-heading">
-					<h4 class="panel-title">Turma : {{turma.nome}} : {{total}} <button ng-click="exportarExcel()">Imprimir</button> </h4>
-				</div>
-				<div class="panel-body" >
-					<table class="table" >
-						<tr>
-							<td>ID</td>
-							<td>Nome</td>
-							<td>Nascimento</td>
-							<td>Contato</td>
-						</tr>
-						<tr ng-repeat="c in registros" ng-class="{'alert alert-warning': c.frequencia == 0 }" >
-							<td><a href="#/catequizandoturma/{{c.id}}/{{c.idTurmaAtual}}">#{{c.id}}</a></td>
-							<td>{{c.nome}}</td>
-							<td>{{formatData(c.nascimento)}}</td>
-							<td>{{c.telCelular}}/{{c.telFixo}}</td>
-						</tr>
-					</table>
-				</div>
+</div>
+
+<div class="row">
+
+	<div class="panel-group col-md-9" id="accordion">
+		<div class="panel panel-success panel-default" id="dvData">
+			<div class="panel-heading">
+				<h4 class="panel-title">Turma : {{turma.nome}} : {{total}}  </h4>
+			</div>
+			<div class="panel-body" >
+				<table class="table" >
+					<tr>
+						<td>ID</td>
+						<td>Nome</td>
+						<td>Nascimento</td>
+						<td>Contato</td>
+						<td>Acao</td>
+					</tr>
+					<tr ng-repeat="c in registros" ng-class="{'alert alert-warning': c.frequencia == 0 }" >
+						<td><a href="#/catequizandoturma/{{c.id}}/{{c.idTurmaAtual}}">#{{c.id}}</a></td>
+						<td>{{c.nome}}</td>
+						<td>{{formatData(c.nascimento)}}</td>
+						<td>{{c.telCelular}}/{{c.telFixo}}</td>
+						<td>
+							<a id="btnRemove" class="btn btn-default btn-xs" ng-click="removerCatequizando(c.id)"> 
+								<span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+							</a>
+						</td>
+					</tr>
+				</table>
 			</div>
 		</div>
+	</div>
+
+	<div class="panel-group col-md-3">
+		<div class="panel panel-default panel-primary" id="dvData">
+			<div class="panel-heading">
+				<h4 class="panel-title">Turmas</h4>
+			</div>
+			<div class="panel-body" >
+				<table class="table">
+					<tr>
+						<td>Turma</td>
+					</tr>
+					<tr ng-repeat="t in turmas">
+						<td><a href="#/turma/{{t.id}}">{{t.nome}} - {{t.ano}}</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>	
 	</div>
 </div>

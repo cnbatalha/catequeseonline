@@ -1,3 +1,102 @@
-<div>
-	<table class="table"></table>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+<div class="row">	
+	<div class="col-xs-12 col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-2">
+						<h3 class="panel-title">Catequista</h3>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+
+				<form ng-submit="addCatequizando()" name="frmCadastro" class="form">
+					<div class="alert alert-success" ng-show="operacaoOK">
+						<button type="button" class="close" data-dismiss="alert">×</button>
+						Catequista cadastrado com sucesso!
+					</div>
+
+					<div class="form-group">
+						<label> Nome </label> <input type="text" class="form-control"
+						ng-model="catequista.nome" required="required">
+					</div>
+					<!-- linha 1 -->
+					<div class="row">
+						<div class="col-sm-6 col-md-6"> 
+							<div class="form-group">
+								<label> Data Nascimento </label> <input type="date"
+								class="form-control" ng-model="catequista.nascimento">
+							</div>
+						</div>
+						<!-- div class="col-sm-6 col-md-6">
+							<div class="form-group">
+								<label> Turma </label>
+								<select class="form-control"
+								ng-model="turmaAtual"
+								ng-options="t.nome for t in turmas track by t.id"></select>
+							</div>
+						</div -->	
+					</div>
+					<!-- linha 2 -->
+					<!-- div class="row">
+						<div class="col-sm-6 col-md-6">
+							<div class="form-group">
+								<label> Nome Pai </label> <input type="text"
+								class="form-control" ng-model="catequista.nomePai">
+							</div>
+						</div>
+						<div class="col-sm-6 col-md-6">
+							<div class="form-group">
+								<label> Nome Mãe </label> <input type="text"
+								class="form-control" ng-model="catequista.nomeMae">
+							</div>
+						</div>
+					</div -->
+					<!-- linha 3 -->
+					<div class="row">
+						<div class="col-sm-6 col-md-6">
+							<div class="form-group">
+								<label> Tel. Celular </label> <input type="tel"
+								class="form-control" ng-model="catequista.telCelular">
+							</div>
+						</div>
+						<div class="col-sm-6 col-md-6">
+							<div class="form-group">
+								<label> Tel. Fixo </label> <input type="tel"
+								class="form-control" ng-model="catequista.telFixo">
+							</div>
+						</div>
+					</div>
+					<!-- linha 4 -->
+					<div class="row">
+						<div class="col-sm-12 col-md-12">
+							<div class="form-group">
+								<label> Observação </label> <input type="text"
+								class="form-control" ng-model="catequista.observacao" >
+							</div>
+						</div>
+					</div>
+
+					<input type="submit" value="Salvar" class="btn btn-default" />
+				</form>
+
+				<div align="center">
+					<ul class="pagination">
+						<li ng-class="page.prevPageDisabled()"><a href
+							ng-click="page.prevPage()">« Prev</a></li>
+							<li ng-repeat="n in page.pages"
+							ng-class="{active: n == page.numberPage}" ng-click="setPage(n)">
+							<a>{{n+1}}</a>
+						</li>
+						<li ng-class="page.nextPageDisabled()"><a href
+							ng-click="page.nextPage()">Next »</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </div>
