@@ -17,6 +17,7 @@
   'ngSanitize',
   'ngTouch',
   'ngMap',
+  'ui.bootstrap',
   'catequeseServices', 
   'catequeseUtilServices',
   'catequizandoModule',
@@ -65,6 +66,14 @@
     templateUrl : 'views/catequista/catequistaList.html',
     controller : 'catequistaListController'
   })
+  .when('/catequista', {
+    templateUrl : 'views/catequista/catequista.html',
+    controller : 'catequistaController'
+  })
+  .when('/catequista/:id', {
+    templateUrl : 'views/catequista/catequista.html',
+    controller : 'catequistaController'
+  })
 
   /* turma */
   .when('/turmalist', {
@@ -76,6 +85,15 @@
   }).when('/turmamap/:id', {
     templateUrl : 'views/turma/turmaMap.html',
     controller : 'turmaMapaController'
+  })
+  
+  /*area*/
+  .when('/areaList', {
+    templateUrl : 'views/area/areaList.html',
+    controller : 'areaListController'
+  }).when('/area/:id', {
+    templateUrl : 'views/area/area.html',
+    controller : 'areaController'
   }).
 
   otherwise('/');

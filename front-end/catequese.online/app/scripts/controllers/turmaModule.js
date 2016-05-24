@@ -1,6 +1,6 @@
 'use strict';
 
-var turmaModule = angular.module('turmaModule', []);
+var turmaModule = angular.module('turmaModule', ['ui.bootstrap']);
 
 turmaModule.controller('turmaController', function($scope, $http, webService) {
 
@@ -22,14 +22,27 @@ turmaModule.controller('turmaController', function($scope, $http, webService) {
 
 });
 
-turmaModule.controller('turmaListaController', function($scope, $http, $routeParams, webService, utilService) {
+turmaModule.controller('turmaListaController', function($scope, $uibModal, $http, $routeParams, TurmaService, webService, utilService) {
 
 	var controller = this;
 	var idTurma = $routeParams.id;
 
+	$scope.idTurma = $routeParams.id;
+
 	$scope.turma = {};
 	$scope.turmas = webService.turmas;
 	$scope.total = 0;
+
+	$scope.turmas = [];
+
+	var fetchTurmas = function() {
+
+		webService.getTurmaList().then(function(value) {
+			$scope.turmas = value;
+		});
+	}
+
+	fetchTurmas();
 
 	$scope.exportarExcel = function(e)
 	{
@@ -37,43 +50,143 @@ turmaModule.controller('turmaListaController', function($scope, $http, $routePar
     	//e.preventDefault();
 
     	$scope.printDiv('dvData');
-	}
+    }
 
-	$scope.printDiv = function(divName) {
-	 	var printContents = document.getElementById(divName).innerHTML;
-	  	var popupWin = window.open('', '_blank', 'width=800,height=600');
-	  	popupWin.document.open();
-	  	popupWin.document.write('<html><head><link rel="stylesheet" href="styles/main.css"></head><body onload="window.print()">' + printContents + '</body></html>');
-	  	popupWin.document.close();
-	}	 
+    $scope.printDiv = function(divName) {
+    	var printContents = document.getElementById(divName).innerHTML;
+    	var popupWin = window.open('', '_blank', 'width=800,height=600');
+    	popupWin.document.open();
+    	popupWin.document.write('<html><head><link rel="stylesheet" href="styles/main.css"></head><body onload="window.print()">' + printContents + '</body></html>');
+    	popupWin.document.close();
+    }	 
 
-	var localizaTurma = function(idTurma) {
-		$scope.turma = $.grep($scope.turmas, function(e, i) {
-			return e.id == idTurma;
-		});
+    $scope.removerCatequizando =  function(idCatequizando) {
 
-		$scope.turma = $scope.turma[0];
-		console.log($scope.turma);
-		return $scope.turma;
-	}
+    	var idSelecionados = [];
+    	idSelecionados.push(idCatequizando);
 
-	localizaTurma(idTurma);
+    	TurmaService.delCatequizandos({idTurma: $scope.idTurma}, angular.toJson(idSelecionados),
+
+    		function(successResult) {
+
+    			fetchRegistros();
+              //if (successResult.status === 1) {
+              //  EventoService.insertParticipante({evento: ev.id}, angular.toJson($scope.listaIdParticipantesEvento));
+              // }
+          });
+
+    }
+
+    var localizaTurma = function(idTurma) {
+    	$scope.turma = $.grep($scope.turmas, function(e, i) {
+    		return e.id == idTurma;
+    	});
+
+    	$scope.turma = $scope.turma[0];
+    	console.log($scope.turma);
+    	return $scope.turma;
+    }
+
+    localizaTurma(idTurma);
+
+    $scope.registros = [];
+
+    var fetchRegistros = function() {
+
+    	TurmaService.getCatequizandos({idTurma:$scope.idTurma})
+    	.$promise.then(function(value) {
+
+    		$scope.registros = value.catequizandos;
+			//setContent(value);
+		}); 
+    }
+
+    fetchRegistros();
+
+    $scope.formatData = function(data) {
+    	var dateFormat = new Date(data);
+    	return dateFormat.toLocaleDateString();
+    }
+
+    $scope.animationsEnabled = true;
+
+    $scope.open = function (size) {
+
+    	var modalInstance = $uibModal.open({
+    		animation: $scope.animationsEnabled,
+    		templateUrl: 'views/catequizando/catequizando-modal.html',
+    		controller: 'ModalCatequizandoCtrl',
+    		size: size,
+    		resolve: {
+    			items: function () {
+    				return $scope.items;
+    			}
+    		}
+    	});
+
+    	modalInstance.result.then(function (selectedItem) {
+    		$scope.selectedItem = selectedItem;
+    		$scope.registros.push($scope.selectedItem);
+
+    		var idSelecionados = [];
+    		idSelecionados.push($scope.selectedItem.id);
+
+    		TurmaService.addCatequizandos({idTurma: $scope.idTurma}, angular.toJson(idSelecionados),
+
+    			function(successResult) {
+
+              //if (successResult.status === 1) {
+              //  EventoService.insertParticipante({evento: ev.id}, angular.toJson($scope.listaIdParticipantesEvento));
+              // }
+          });
+
+    		// webService.saveClienteFilho($scope.cliente.id, $scope.selectedItem.id);
+
+    	}, function () {
+    		$log.info('Modal dismissed at: ' + new Date());
+    	});
+    };
+})
+.controller('ModalCatequizandoCtrl', function($scope, $uibModalInstance, webService, CatequizandoService) {
+
+	$scope.items = [];	
+
+	$scope.inputSearch = '';	
 
 	$scope.registros = [];
 
-	var fetchRegistros = function() {
-		webService.getTurmaCatequizandoList(idTurma).then(function(value) {
-			$scope.registros = value;
-			$scope.total = $scope.registros.length;
-		});
-	}
+	$scope.findByName = function() {
 
-	fetchRegistros();
+		CatequizandoService.searchByName({currentPage:0, sizePage:10, value:$scope.inputSearch })
+		.$promise.then(function(value) {
 
-	$scope.formatData = function(data) {
-		var dateFormat = new Date(data);
-		return dateFormat.toLocaleDateString();
-	}
+			$scope.registros = value.content;
+			//setContent(value);
+		}); 
+
+		//webService.getClienteListByNome(0, $scope.inputSearch, 0, 5).then(function(value) {
+			//$scope.page.loadPage(value);
+		//	$scope.registros = value.content;
+		//});
+};    
+
+$scope.selected = {
+	item: $scope.items[0]
+};
+
+$scope.add = function (cliente) {
+	$uibModalInstance.close(cliente);
+};
+
+
+$scope.ok = function () {
+	$uibModalInstance.close();
+};
+
+$scope.cancel = function () {
+	$uibModalInstance.dismiss('cancel');
+};
+
 });
 
 turmaModule.controller('turmaMapaController', function($scope, $http, $routeParams, webService, utilService) {

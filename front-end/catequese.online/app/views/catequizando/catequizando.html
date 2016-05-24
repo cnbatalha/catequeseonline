@@ -1,26 +1,6 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 
 <div class="row">
-	<div class="col-xs-3">
-		<div class="panel panel-default" ng-show={{listarTurma}}>
-			<div class="panel-heading">
-				<div class="row">
-					<div class="col-xs-2">
-						<h3 class="panel-title">Catequizandos</h3>
-					</div>
-				</div>
-			</div>
-			<div class="panel-body">
-				<table class="table" >
-					<tbody>
-						<tr ng-repeat="c in registros" ng-class="{'alert alert-warning': c.frequencia == 0 }" >
-							<td><a href="#/catequizandoturma/{{c.id}}/{{c.idTurmaAtual}}">{{substrNome(c.nome)}}</a></td>	
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>				
 	<div class="col-xs-9 col-md-9">
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -142,5 +122,26 @@
 			</div>
 		</div>
 	</div>
+	<div class="col-xs-3" ng-show={{listarTurma}}>
+		<div class="panel panel-default" ng-show={{listarTurma}}>
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-2">
+						<h3 class="panel-title">Catequizandos</h3>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<table class="table" >
+					<tbody>
+						<tr ng-repeat="c in registros" ng-class="{'alert alert-warning': c.frequencia == 0 }" >
+							<td><a href="#/catequizandoturma/{{c.id}}/{{c.idTurmaAtual}}">{{substrNome(c.nome)}}</a></td>	
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>				
+
 
 </div>
