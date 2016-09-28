@@ -18,6 +18,7 @@
 
 
  	$scope.turmas = [];
+  var turmasAux = [];
 
  	$scope.exportToExcel=function(tableId){ 
 
@@ -32,9 +33,45 @@
 
  	var fetchTurmas = function() {
 
- 		webService.getTurmaList().then(function(value) {
- 			$scope.turmas = value;
- 		});
+ 		// var recentPostsRef = firebase.database().ref('catequizandos/').orderByChild("nome").startAt("A").endAt("A\uf8ff");
+
+ 		// var recentPostsRef = firebase.database().ref('catequizandos/turmas').orderByChild("turmas/-KLmd5k4CqEqS6JPzLe6");
+
+ 		var recentPostsRef = firebase.database().ref('turmas').orderByValue();		
+ 		// -KLiNSOqJcAC62KDbwwk - catequizando
+ 		// -KLmd5k4CqEqS6JPzLe6 - turma
+				
+		
+		/*recentPostsRef.on('value', function(data) {
+        
+        $scope.turmas = data.val();
+        $scope.$apply();
+        console.log($scope.turmas);    
+
+		});*/
+ 		
+
+    
+		recentPostsRef.once('value', function(data) {
+  		  // $scope.turmas = data.val();
+  		  // console.log($scope.turmas);
+        
+        data.forEach(function(childSnapshot) {
+          // key will be "fred" the first time and "barney" the second time
+          var key = childSnapshot.key;
+          // childData will be the actual contents of the child
+          var childData = childSnapshot.val();
+          childData.key = key;
+
+          $scope.turmas.push(childData);
+          $scope.$apply();
+
+          //console.log(key);
+          //console.log(childData);
+
+        }); 
+  	});
+
  	};
 
  	$scope.aniversarios = [];

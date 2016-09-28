@@ -98,12 +98,11 @@
 
   otherwise('/');
 
-}).controller('home', function($scope) {
+}).controller('home', function($scope, $rootScope) {
 
   $scope.box = function() {
 
-    /* bootbox.alert("Mensagem alerta", function(result) {
-    }); */
+
 
 };
 
@@ -150,20 +149,24 @@
 }).run([ '$rootScope', '$location', '$cookieStore', '$http', function($rootScope, $location, $cookieStore, $http) {
   // keep user logged in after page refresh
   $rootScope.globals = $cookieStore.get('globals') || {};
-  if ($rootScope.globals.currentUser) {
-    $http.defaults.headers.common['authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint
+  //if ($rootScope.globals.currentUser) {
+  //  $http.defaults.headers.common['authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint
     // ignore:line
-  }
+  //}
 
   $rootScope.$on('$locationChangeStart', function(event, next, current) {
     // redirect to login page if not logged in
-    current = null;
-    if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
+    //current = null;
+    console.log('AuthTk: ' + $rootScope.authTk);
+    console.log('Auth: ' + $rootScope.auth);
+    
+    if ($location.path() !== '/login' && !$rootScope.auth) {
       $location.path('/login');
     }
   });
 } ]).factory('authHttpResponseInterceptor', [ '$q', '$location', function($q, $location) {
   return {
+    //console.log($rootScope.authdata);
     response : function(response) {
       if (response.status === 401) {
         console.log("Response 401");
@@ -173,12 +176,12 @@
     responseError : function(rejection) {
       if (rejection.status === 401) {
         console.log("Response Error 401", rejection);
-        $location.path('/login').search('returnTo', $location.path());
+        //$location.path('/login').search('returnTo', $location.path());
       }
       return $q.reject(rejection);
     } 
   };
 } ]).config([ '$httpProvider', function($httpProvider) {
   // Http Intercpetor to check auth failures for xhr requests
-  $httpProvider.interceptors.push('authHttpResponseInterceptor');
+  //$httpProvider.interceptors.push('authHttpResponseInterceptor');
 } ]);
