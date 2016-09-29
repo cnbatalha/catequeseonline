@@ -179,7 +179,7 @@ turmaModule.controller('turmaListaController', function($scope, $uibModal, $http
     		$scope.selectedItem = selectedItem;    		    		
     		$scope.registros.push($scope.selectedItem);
 
-			if !("turmas" in selectedItem)
+			if (!("turmas" in selectedItem))
 			{
 				selectedItem.turmas = {};
 			}	    		
