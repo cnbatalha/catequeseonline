@@ -52,12 +52,12 @@
 						<td>Acao</td>
 					</tr>
 					<tr ng-repeat="c in registros" ng-class="{'alert alert-warning': c.frequencia == 0 }" >
-						<td><a href="#/catequizandoturma/{{c.id}}/{{c.idTurmaAtual}}">#{{c.id}}</a></td>
+						<td><a href="#/catequizandoturma/{{c.key}}/{{idTurma}}">#{{c.id}}</a></td>
 						<td>{{c.nome}}</td>
 						<td>{{formatData(c.nascimento)}}</td>
 						<td>{{c.telCelular}}/{{c.telFixo}}</td>
 						<td>
-							<a id="btnRemove" class="btn btn-default btn-xs" ng-click="removerCatequizando(c.id)"> 
+							<a id="btnRemove" class="btn btn-default btn-xs" ng-click="removerCatequizando(c)"> 
 								<span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
 							</a>
 						</td>

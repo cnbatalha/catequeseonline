@@ -30,6 +30,34 @@ catequeseServices.service('webService', function($http, $location, $rootScope) {
 	/* *************************************************************** */
 	/* Catequizando */
 
+	this.fbGetCatequizandos = function( lista )
+	{
+
+		var catequizandosRef = firebase.database().ref('catequizandos').orderByChild("nome")
+								.startAt($scope.inputSearch)
+								.endAt($scope.inputSearch + "\uf8ff")
+								.limitToFirst(10);		
+
+
+		catequizandosRef.once('value', function(data) {		
+
+			data.forEach(function(data) {
+		        // key will be "fred" the first time and "barney" the second time
+		    var key = data.key;
+		        // childData will be the actual contents of the child
+		    var childData = data.val();
+		    childData.key = key;
+
+		    lista.push(childData);
+		    $scope.$apply();
+
+			}); 
+						
+		});
+	}
+
+
+
 	/* servico retorna o plano de Producao do Id informado */
 	this.getCatequizandoList = function(pageIndex) {
 
@@ -119,6 +147,30 @@ catequeseServices.service('webService', function($http, $location, $rootScope) {
 
 	/* ************************************************************************ */
 	/* turma */
+
+	this.fbGetTurmas = function( updateLista )
+	{
+
+		var turmasRef = firebase.database().ref('turmas').orderByChild("ano");
+		//						.limitToLast(10);		
+
+		turmasRef.once('value', function(data) {		
+
+			data.forEach(function(data) {
+
+		    var key = data.key;
+		    var childData = data.val();
+		    childData.key = key;
+
+		    updateLista(childData);
+		    //$scope.$apply();
+
+			}); 
+						
+		});
+	}
+
+
 
 	/* servico retorna turmas */
 	this.getTurmaList = function() {

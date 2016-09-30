@@ -21,6 +21,11 @@
 							<td><a href="#/turma/{{t.id}}">#{{t.id}}</a></td>
 							<td>{{t.ano}}</td>
 							<td>{{t.nome}}</td>
+							<td>
+								<a id="btnRemove" class="btn btn-default btn-xs" ng-click="removerTurma(t)"> 
+									<span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+								</a>
+							</td>							
 						</tr>
 					</table>
 				</div>
