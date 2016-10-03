@@ -6,13 +6,14 @@ angular.module('AuthController', [])
 
 	function($scope, $rootScope, $location, AuthenticationService) {
 		
-		$rootScope.serviceName = '/catequese-online-2';
-		$rootScope.urlBase = 'http://sistematic.serveftp.net:8080' + $rootScope.serviceName;				
+	//$rootScope.serviceName = '/catequese-online-2';
+	//$rootScope.urlBase = 'http://sistematic.serveftp.net:8080' + $rootScope.serviceName;				
 	//$rootScope.urlBase = 'http://localhost:8080' + $rootScope.serviceName;				
 	
 	// reset login status
-	AuthenticationService.ClearCredentials();
+	// AuthenticationService.ClearCredentials();
 
+	// firebase configuration 
 	var config = {
 		apiKey: "AIzaSyAvlrUUU0j6b5geu0D4gJN1fMuD50Y-yE4",
 		authDomain: "catequese-online-01.firebaseapp.com",
@@ -21,13 +22,13 @@ angular.module('AuthController', [])
 	};
 
 
-
+	// login usuario
 	$scope.login = function() {
 
+		// inicializando firebase
 		firebase.initializeApp(config);
 
 		var rootRef = firebase.database().ref();
-
 		var auth = firebase.auth();
 
 		var redirect = function()
@@ -35,19 +36,23 @@ angular.module('AuthController', [])
 			$location.path('/home');		
 		}
 
+
 		var provider = new firebase.auth.GoogleAuthProvider();
 		auth.signInWithPopup(provider).then(function(result) {
-			console.log(result);
-			$rootScope.authTk = result.credential.accessToken;
 			
+			// getting token			
+			$rootScope.authTk = result.credential.accessToken;			
+			// getting user info
+			$rootScope.user = result.user;
+
 			$rootScope.auth = true; 
-			var user = result.user;
+			
+			// redirecting 
 			$location.path('/home');
 			$scope.$apply();
-			//$cookieStore.put('globals', $rootScope.globals);
+
 			console.log(user);
 
-		  // ...
 		}).catch(function(error) {
 			console.log(error);
 		  // Handle Errors here.
@@ -62,28 +67,26 @@ angular.module('AuthController', [])
 
 		$location.path('/home');
 
-		/*$scope.dataLoading = true;
-		$rootScope.userLogin = $scope.username;
-		AuthenticationService.Login($scope.username, $scope.password, function(response) {
-			if (response.data === true) {
-				AuthenticationService.SetCredentials($scope.username, $scope.password);
-				$location.path('/home');
-				$scope.auth = true;
-			} else {
-				$scope.error = 'Login inválido!'; // response.message;
-				$scope.dataLoading = false;
-			}
-		});*/
-};
+	};
 
-$scope.logout = function() {
-	AuthenticationService.ClearCredentials();
-	$location.path('/login');
-};
+	$scope.logout = function() {
 
-if ($scope.auth !== true) {
-	AuthenticationService.ClearCredentials();
+		firebase.auth().signOut().then(function() {
+  			// Sign-out successful
+  			console.log('signOut');
+  		}, function(error) {  			
+  			// An error happened
+  			console.log(error);
+  		});
+
+		// AuthenticationService.ClearCredentials();
+
+		$location.path('/login');
+	};
+
+	//if ($scope.auth !== true) {
+		//AuthenticationService.ClearCredentials();
 		//$location.path('/login');
-	}
+	//}
 
 });

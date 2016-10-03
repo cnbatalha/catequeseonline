@@ -85,7 +85,11 @@
   }).when('/turmamap/:id', {
     templateUrl : 'views/turma/turmaMap.html',
     controller : 'turmaMapaController'
+  }).when('/turma', {
+    templateUrl : 'views/turma/turma.html',
+    controller : 'turmaListaController'
   })
+  
   
   /*area*/
   .when('/areaList', {

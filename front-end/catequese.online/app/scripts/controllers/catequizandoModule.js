@@ -58,6 +58,7 @@ catequizandoModule.controller('aniversarioController', function($scope, $http, $
 
 	// verifica se precisa listar a turma
 	$scope.listarTurma = ($routeParams.idturma !== undefined );
+	
 	var idTurmaList = $routeParams.idturma;
 
 	$scope.catequizando = {};

@@ -22,8 +22,8 @@ turmaModule.controller('turmaController', function($scope, $http, webService) {
 	{
 		// conexao firebase turmas
 		var turmaRef = firebase.database().ref('turmas');
-		turmaRef.child(t.key);
-		turmaRef.remove();
+		turmaRef.child(t.key).remove();
+		//turmaRef.remove();
 		//turmaRef.remove(function(error) {
     	//	alert(error ? "Uh oh!" : "Success!");
   		//});
@@ -61,26 +61,49 @@ turmaModule.controller('turmaListaController', function($scope, $uibModal, $http
 	// evento consultando turmas
 	recentPostsRef.on('value', function(data) {
 	  	$scope.turma = data.val();
+	  	$scope.$apply();
 	  	$scope.registros = [];
 
-		$scope.total = $scope.turma.catequizandos.size;
 
-	  	// consultando catequizandos da turma
-	  	for (var variable in $scope.turma.catequizandos) {
- 		   	//console.log(variable);
+	  	if ("catequizandos" in  $scope.turma)
+	  	{
+			$scope.total = $scope.turma.catequizandos.size;
 
-			var catequizandosRef = firebase.database().ref('catequizandos/' + variable).orderByValue();
+		  	// consultando catequizandos da turma
+		  	for (var variable in $scope.turma.catequizandos) {
+	 		   	//console.log(variable);
 
-			catequizandosRef.on('value', function(data) {				
-				var catequizando = data.val();
-				catequizando.key = data.key;
-				$scope.registros.push(catequizando);
-				$scope.$apply();
+				var catequizandosRef = firebase.database().ref('catequizandos/' + variable).orderByValue();
 
-			});
+				catequizandosRef.on('value', function(data) {				
+					var catequizando = data.val();
+					catequizando.key = data.key;
+					$scope.registros.push(catequizando);
+					$scope.$apply();
+
+				});
+			}
 		}
 
 	});		
+
+	// salva turma
+	$scope.salvarTurma = function()
+	{
+
+		// cria novo registro de turmas
+		if ( $scope.idTurma == undefined)
+		{
+			$scope.idTurma  = firebase.database().ref("turmas").push().getKey();
+			$scope.turma.key = $scope.idTurma ;
+		}
+
+		var updates = {};
+  		updates['/turmas/' +$scope.idTurma ] = $scope.turma;
+
+  		// atualiza turmas
+  		firebase.database().ref().update(updates);		
+	}
 
 	// lista de turmas
 	$scope.turmas = [];
@@ -146,19 +169,7 @@ turmaModule.controller('turmaListaController', function($scope, $uibModal, $http
     	return $scope.turma;
     }
 
-    localizaTurma($scope.idTurma );
-
-    var fetchRegistros = function() {
-
-    	TurmaService.getCatequizandos({idTurma:$scope.idTurma})
-    	.$promise.then(function(value) {
-
-    		$scope.registros = value.catequizandos;
-			//setContent(value);
-		}); 
-    }
-
-    fetchRegistros();
+    // localizaTurma($scope.idTurma );
 
     $scope.formatData = function(data) {
     	var dateFormat = new Date(data);
