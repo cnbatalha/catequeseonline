@@ -212,23 +212,33 @@ catequizandoModule.controller('aniversarioController', function($scope, $http, $
 
 	// carrega todos os registros usando paginacao
 	var fetchRegistros = function(pageIndex) {
+		
+		$scope.registros = [];
 
-		webService.getCatequizandoList(pageIndex).then(function(value) {
-			$scope.page.loadPage(value);
-			$scope.registros = $scope.page.content;
+		// conexao firebase catequizandos
+		var catequizandosRef = firebase.database().ref('catequizandos').orderByChild("nome")
+		.startAt($scope.inputSearch)
+		.endAt($scope.inputSearch + "\uf8ff")
+		.limitToFirst(10);
+
+		catequizandosRef.once('value', function(data) {		
+
+			data.forEach(function(data) {
+		        // key will be "fred" the first time and "barney" the second time
+		        var key = data.key;
+		        // childData will be the actual contents of the child
+		        var childData = data.val();
+		        childData.key = key;
+
+		        $scope.registros.push(childData);
+		        $scope.$apply();
+
+		    }); 
+
 		});
+
 	};
 
-	var fetchRegistrosNome = function(indexPage) {
-		webService.getCatequizandoNome($scope.inputSearch, indexPage).then(function(value) {
-			$scope.page.loadPage(value);
-			$scope.registros = $scope.page.content;
-		}, function(reason) {
-
-		}, function(value) {
-
-		});
-	};
 
 	$scope.formatData = function(data) {
 		var dateFormat = new Date(data);
@@ -239,13 +249,15 @@ catequizandoModule.controller('aniversarioController', function($scope, $http, $
 	$scope.buscarRegistro = function() {
 		// caso nao seja informado valor campo para pesquisa retorna todos os
 		// registros
-		if ($scope.inputSearch.length == 0) {
-			fetchRegistros(0);
-			filtro = false;
-		} else {
-			fetchRegistrosNome(0);
-			filtro = true;
-		}
+
+		fetchRegistros(0);
+		//if ($scope.inputSearch.length == 0) {
+		//	fetchRegistros(0);
+		//	filtro = false;
+		//} else {
+		//	fetchRegistrosNome(0);
+		//		filtro = true;
+		//}
 	};
 
 	$scope.setPage = function(indexPage) {

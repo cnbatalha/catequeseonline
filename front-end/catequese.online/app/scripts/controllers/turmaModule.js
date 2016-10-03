@@ -27,14 +27,14 @@ turmaModule.controller('turmaController', function($scope, $http, webService) {
 		//turmaRef.remove(function(error) {
     	//	alert(error ? "Uh oh!" : "Success!");
   		//});
-	}
+}
 
-	fetchRegistros();
+fetchRegistros();
 
-	$scope.formatData = function(data) {
-		dateFormat = new Date(data);
-		return dateFormat.toLocaleDateString();
-	}
+$scope.formatData = function(data) {
+	dateFormat = new Date(data);
+	return dateFormat.toLocaleDateString();
+}
 
 });
 
@@ -60,32 +60,32 @@ turmaModule.controller('turmaListaController', function($scope, $uibModal, $http
 	
 	// evento consultando turmas
 	recentPostsRef.on('value', function(data) {
-	  	$scope.turma = data.val();
-	  	$scope.$apply();
-	  	$scope.registros = [];
+		$scope.turma = data.val();
+		$scope.$apply();
+		$scope.registros = [];
 
 
-	  	if ("catequizandos" in  $scope.turma)
-	  	{
+		if ("catequizandos" in  $scope.turma)
+		{
 			$scope.total = $scope.turma.catequizandos.size;
 
 		  	// consultando catequizandos da turma
 		  	for (var variable in $scope.turma.catequizandos) {
 	 		   	//console.log(variable);
 
-				var catequizandosRef = firebase.database().ref('catequizandos/' + variable).orderByValue();
+	 		   	var catequizandosRef = firebase.database().ref('catequizandos/' + variable).orderByValue();
 
-				catequizandosRef.on('value', function(data) {				
-					var catequizando = data.val();
-					catequizando.key = data.key;
-					$scope.registros.push(catequizando);
-					$scope.$apply();
+	 		   	catequizandosRef.on('value', function(data) {				
+	 		   		var catequizando = data.val();
+	 		   		catequizando.key = data.key;
+	 		   		$scope.registros.push(catequizando);
+	 		   		$scope.$apply();
 
-				});
-			}
-		}
+	 		   	});
+	 		   }
+	 		}
 
-	});		
+	 	});		
 
 	// salva turma
 	$scope.salvarTurma = function()
@@ -99,11 +99,11 @@ turmaModule.controller('turmaListaController', function($scope, $uibModal, $http
 		}
 
 		var updates = {};
-  		updates['/turmas/' +$scope.idTurma ] = $scope.turma;
+		updates['/turmas/' +$scope.idTurma ] = $scope.turma;
 
   		// atualiza turmas
   		firebase.database().ref().update(updates);		
-	}
+  	}
 
 	// lista de turmas
 	$scope.turmas = [];
@@ -114,9 +114,9 @@ turmaModule.controller('turmaListaController', function($scope, $uibModal, $http
 		// webService.getTurmaList().then(function(value) {
 		//	$scope.turmas = value;
 		// });
-	}
+}
 
-	fetchTurmas();
+fetchTurmas();
 
 	// exportando excel
 	$scope.exportarExcel = function(e)
@@ -139,35 +139,35 @@ turmaModule.controller('turmaListaController', function($scope, $uibModal, $http
     // remove catequizando da turma
     $scope.removerCatequizando =  function(catequizando) {
 
-		var updates = {};
+    	var updates = {};
 
 		// verificando se pos
 		if ("turmas" in catequizando)
 		{
 			if ($scope.idTurma in catequizando.turmas)			
 			{
-    			delete catequizando.turmas[$scope.idTurma];				
-  				updates['/catequizandos/' + catequizando.key + '/turmas'] = catequizando.turmas;    			
+				delete catequizando.turmas[$scope.idTurma];				
+				updates['/catequizandos/' + catequizando.key + '/turmas'] = catequizando.turmas;    			
 			}
 		}
 
-    	delete $scope.turma.catequizandos[catequizando.key];
-  		updates['/turmas/' +$scope.idTurma + '/catequizandos'] = $scope.turma.catequizandos;
+		delete $scope.turma.catequizandos[catequizando.key];
+		updates['/turmas/' +$scope.idTurma + '/catequizandos'] = $scope.turma.catequizandos;
 
-  		firebase.database().ref().update(updates);
+		firebase.database().ref().update(updates);
 
-    }
+	}
 
-    var localizaTurma = function(idTurma) {
+	var localizaTurma = function(idTurma) {
 
-    	$scope.turma = $.grep($scope.turmas, function(e, i) {
-    		return e.id == idTurma;
-    	});
+		$scope.turma = $.grep($scope.turmas, function(e, i) {
+			return e.id == idTurma;
+		});
 
-    	$scope.turma = $scope.turma[0];
-    	console.log($scope.turma);
-    	return $scope.turma;
-    }
+		$scope.turma = $scope.turma[0];
+		console.log($scope.turma);
+		return $scope.turma;
+	}
 
     // localizaTurma($scope.idTurma );
 
@@ -207,18 +207,18 @@ turmaModule.controller('turmaListaController', function($scope, $uibModal, $http
 
 			// vunculando catequizando as turmas
 			var updates = {};
-  			updates['/catequizandos/' + selectedItem.key + '/turmas/' + $scope.idTurma] = true;
-  			updates['/turmas/' +$scope.idTurma + '/catequizandos/' + selectedItem.key] = true;
+			updates['/catequizandos/' + selectedItem.key + '/turmas/' + $scope.idTurma] = true;
+			updates['/turmas/' +$scope.idTurma + '/catequizandos/' + selectedItem.key] = true;
 
-  			firebase.database().ref().update(updates);
+			firebase.database().ref().update(updates);
 
   			// return firebase.database().ref().update(updates);
 
 			// https://github.com/firebase/quickstart-js/blob/master/database/scripts/main.js
 
-    	}, function () {
-    		$log.info('Modal dismissed at: ' + new Date());
-    	});
+		}, function () {
+			$log.info('Modal dismissed at: ' + new Date());
+		});
     };
 })
 .controller('ModalCatequizandoCtrl', function($scope, $uibModalInstance, webService, CatequizandoService) {
@@ -231,14 +231,14 @@ turmaModule.controller('turmaListaController', function($scope, $uibModal, $http
 
 	$scope.findByName = function() {
 
-	var catequizandosRef = firebase.database().ref('catequizandos').orderByChild("nome")
-								.startAt($scope.inputSearch)
-								.endAt($scope.inputSearch + "\uf8ff")
-								.limitToFirst(10);
+		var catequizandosRef = firebase.database().ref('catequizandos').orderByChild("nome")
+		.startAt($scope.inputSearch)
+		.endAt($scope.inputSearch + "\uf8ff")
+		.limitToFirst(10);
 
-			catequizandosRef.once('value', function(data) {		
+		catequizandosRef.once('value', function(data) {		
 
-			    data.forEach(function(data) {
+			data.forEach(function(data) {
 		        // key will be "fred" the first time and "barney" the second time
 		        var key = data.key;
 		        // childData will be the actual contents of the child
@@ -248,28 +248,28 @@ turmaModule.controller('turmaListaController', function($scope, $uibModal, $http
 		        $scope.registros.push(childData);
 		        $scope.$apply();
 
-			    }); 
-						
-			});
+		    }); 
+			
+		});
 
 	};    
 
-$scope.selected = {
-	item: $scope.items[0]
-};
+	$scope.selected = {
+		item: $scope.items[0]
+	};
 
-$scope.add = function (cliente) {
-	$uibModalInstance.close(cliente);
-};
+	$scope.add = function (cliente) {
+		$uibModalInstance.close(cliente);
+	};
 
 
-$scope.ok = function () {
-	$uibModalInstance.close();
-};
+	$scope.ok = function () {
+		$uibModalInstance.close();
+	};
 
-$scope.cancel = function () {
-	$uibModalInstance.dismiss('cancel');
-};
+	$scope.cancel = function () {
+		$uibModalInstance.dismiss('cancel');
+	};
 
 });
 
