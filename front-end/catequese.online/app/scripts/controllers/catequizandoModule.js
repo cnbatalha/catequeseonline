@@ -53,7 +53,6 @@ catequizandoModule.controller('aniversarioController', function($scope, $http, $
 .controller('catequizandoController', function($scope, $http, $routeParams, webService) {
 
 	var controller = this;
-
 	var idCatequizando = $routeParams.id;
 
 	// verifica se precisa listar a turma
@@ -135,13 +134,22 @@ catequizandoModule.controller('aniversarioController', function($scope, $http, $
 
 	var fetchRegistro = function(id) {
 
-		webService.getCatequizando(id).then(function(value) {
-			$scope.catequizando = value;
-			$scope.catequizando.nascimento = new Date($scope.catequizando.nascimento);
-			localizaTurma($scope.catequizando.idTurmaAtual);
-			localizaFrequencia($scope.catequizando.frequencia);
-			$scope.getGeoPosition();
+		// conexao firebase turmas
+		var cateqRef = firebase.database().ref('catequizandos/' + $routeParams.id).orderByValue();
+
+		cateqRef.on('value', function(data) {
+			$scope.catequizando = data.val();
+			$scope.$apply();
+
 		});
+
+		//webService.getCatequizando(id).then(function(value) {
+		//	$scope.catequizando = value;
+		//	$scope.catequizando.nascimento = new Date($scope.catequizando.nascimento);
+		//	localizaTurma($scope.catequizando.idTurmaAtual);
+		//	localizaFrequencia($scope.catequizando.frequencia);
+		//	$scope.getGeoPosition();
+		//});
 
 	};
 
