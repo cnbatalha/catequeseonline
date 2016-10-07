@@ -21,12 +21,15 @@ angular.module('AuthController', [])
 		storageBucket: "catequese-online-01.appspot.com",
 	};
 
+	// inicializando firebase
+	if ($rootScope.initialized === undefined )
+	{
+		firebase.initializeApp(config);	
+		$rootScope.initialized 	= true;
+	}	
 
 	// login usuario
 	$scope.login = function() {
-
-		// inicializando firebase
-		firebase.initializeApp(config);
 
 		var rootRef = firebase.database().ref();
 		var auth = firebase.auth();
@@ -36,7 +39,6 @@ angular.module('AuthController', [])
 			$location.path('/home');		
 		}
 
-
 		var provider = new firebase.auth.GoogleAuthProvider();
 		auth.signInWithPopup(provider).then(function(result) {
 			
@@ -44,29 +46,27 @@ angular.module('AuthController', [])
 			$rootScope.authTk = result.credential.accessToken;			
 			// getting user info
 			$rootScope.user = result.user;
-
-			$rootScope.auth = true; 
-			
+			$rootScope.auth = true; 			
 			// redirecting 
 			$location.path('/home');
 			$scope.$apply();
 
-			console.log(user);
+			$rootScope.userName = $rootScope.user.displayName;
+
+			console.log($rootScope.user);
 
 		}).catch(function(error) {
 			console.log(error);
-		  // Handle Errors here.
-		  var errorCode = error.code;
-		  var errorMessage = error.message;
-		  // The email of the user's account used.
-		  var email = error.email;
-		  // The firebase.auth.AuthCredential type that was used.
-		  var credential = error.credential;
-		  // ...
+		 	// Handle Errors here.
+		  	var errorCode = error.code;
+		  	var errorMessage = error.message;
+		  	// The email of the user's account used.
+		  	var email = error.email;
+		  	// The firebase.auth.AuthCredential type that was used.
+		  	var credential = error.credential;
 		});
 
 		$location.path('/home');
-
 	};
 
 	$scope.logout = function() {
@@ -74,6 +74,8 @@ angular.module('AuthController', [])
 		firebase.auth().signOut().then(function() {
   			// Sign-out successful
   			console.log('signOut');
+			$rootScope.auth = false; 	  			
+
   		}, function(error) {  			
   			// An error happened
   			console.log(error);

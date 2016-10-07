@@ -19,32 +19,7 @@
     <div class="row">
       <nav ng-controller="LoginController" ng-show="auth" class="navbar navbar-default">
         <ul class="nav nav-pills">
-          <li><a href="#/home">Home</a></li>
-          <li ng-show="false"><a href="#/login">login</a></li>
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Turma<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#/turmalist">Turma</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#/turmalist">Turma</a></li>
-              <li><a href="#/turmamap/0">Mapa</a></li>
-            </ul>
-          </li>          
-          <li><a href="#/catequistaList">Catequista</a></li>
-          <li><a href="#/areaList">Area</a></li>
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catequizando <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a>Novo</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#/catequizandolist">Catequizandos</a></li>
-              <li><a href="#/aniversario">Aniversariantes</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#/aniversario">Frequência</a></li>
-            </ul>
-          </li>
-          <li ng-show="auth"><a href="" ng-click="logout()">Sair</a></li>
-          <li>Olá, {{userLogin}}</li>
+          <h2>SisCatequese 0.0.1</h2>
         </ul>
       </nav>
     </div>
@@ -56,9 +31,10 @@
           <ul class="nav nav-pills nav-stacked">
             <!-- botao home -->
             <li role="presentation"><a href="#/home">Painel Principal</a></li>
-            <li role="presentation"><a href="#/turmalist">Turma</a></li>
             <!-- catequizandos -->
             <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catequizando <span class="caret"></span>
+              </a>              
               <ul class="dropdown-menu">
                 <li><a>Novo</a></li>
                 <li role="separator" class="divider"></li>
@@ -72,16 +48,16 @@
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Turma<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#/turma">Turma</a></li>
+                <li><a href="#/turma">Novo</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#/turmalist">Turma</a></li>
+                <li><a href="#/turmalist">Turmas</a></li>
                 <li><a href="#/turmamap/0">Mapa</a></li>
               </ul>
             </li>              
             <!-- catequisa -->        
             <li><a href="#/catequistaList">Catequista</a></li>
             <li ng-show="auth"><a href="" ng-click="logout()">Sair</a></li>
-            <li>Olá, {{userLogin}}</li>            
+            <li>Olá, {{userName}}</li>            
           </ul>
 
         </div>    
