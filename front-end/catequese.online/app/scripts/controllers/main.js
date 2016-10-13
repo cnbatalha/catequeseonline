@@ -37,7 +37,7 @@
 
  		// var recentPostsRef = firebase.database().ref('catequizandos/turmas').orderByChild("turmas/-KLmd5k4CqEqS6JPzLe6");
 
- 		var recentPostsRef = firebase.database().ref('turmas').orderByValue();		
+ 		var recentPostsRef = firebase.database().ref('turmas').orderByChild("nome").limitToFirst(8);		
  		// -KLiNSOqJcAC62KDbwwk - catequizando
  		// -KLmd5k4CqEqS6JPzLe6 - turma
 				
@@ -80,13 +80,13 @@
  	$scope.mes = d.getMonth() +1;
 
  	var fechAniversariantes = function() {
- 		webService.aniversarioCatequizando($scope.mes).then(function(value) {
- 			$scope.aniversarios = value;
- 		}, function() {
-
- 		}, function() {
-
- 		});
+ 		//webService.aniversarioCatequizando($scope.mes).then(function(value) {
+ 		//	$scope.aniversarios = value;
+ 		//}, function() {
+    //  
+ 		//}, function() {
+    //  
+ 		//});
  	};
 
 
