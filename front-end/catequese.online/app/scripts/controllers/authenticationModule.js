@@ -5,15 +5,15 @@ angular.module('AuthController', [])
 .controller('LoginController',
 
 	function($scope, $rootScope, $location, AuthenticationService) {
-		
+
 	//$rootScope.serviceName = '/catequese-online-2';
-	//$rootScope.urlBase = 'http://sistematic.serveftp.net:8080' + $rootScope.serviceName;				
-	//$rootScope.urlBase = 'http://localhost:8080' + $rootScope.serviceName;				
-	
+	//$rootScope.urlBase = 'http://sistematic.serveftp.net:8080' + $rootScope.serviceName;
+	//$rootScope.urlBase = 'http://localhost:8080' + $rootScope.serviceName;
+
 	// reset login status
 	// AuthenticationService.ClearCredentials();
 
-	// firebase configuration 
+	// firebase configuration
 	var config = {
 		apiKey: "AIzaSyAvlrUUU0j6b5geu0D4gJN1fMuD50Y-yE4",
 		authDomain: "catequese-online-01.firebaseapp.com",
@@ -22,36 +22,54 @@ angular.module('AuthController', [])
 	};
 
 	// inicializando firebase
-	if ($rootScope.initialized === undefined )
+	if ($rootScope.initialized === undefined)
 	{
-		firebase.initializeApp(config);	
+		firebase.initializeApp(config);
 		$rootScope.initialized 	= true;
 
 		// FirebaseUI config
 		var uiConfig = {
-			'signInSuccessUrl': '<url-to-redirect-to-on-success>',
+			'signInSuccessUrl': '#/home',
+			// Terms of service url
+			'tosUrl': '<your-tos-url>',
 			'signInOptions': [
-	          // Leave the lines as is for the providers you want to offer your users.
+	          // Leave the lines as is for the providers you want to offer your users
 	          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-	          firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-	          firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-	          firebase.auth.GithubAuthProvider.PROVIDER_ID,
+	          //firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+	          //firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+	          //firebase.auth.GithubAuthProvider.PROVIDER_ID,
 	          firebase.auth.EmailAuthProvider.PROVIDER_ID
-	          ],
-	        // Terms of service url.
-	        'tosUrl': '<your-tos-url>',
-	    }
+	      ],
+				'callbacks': {
+						'signInSuccess': function(currentUser, credential, redirectUrl) {
 
+							// getting token
+							$rootScope.authTk = credential.accessToken;
+							// getting user info
+							$rootScope.user = currentUser;
+							$rootScope.auth = true;
+							// redirecting
+							$location.path('/home');
+							$scope.$apply();
 
-      // Initialize the FirebaseUI Widget using Firebase.
-      var ui = new firebaseui.auth.AuthUI(firebase.auth());
-      // The start method will wait until the DOM is loaded.
-      ui.start('#firebaseui-auth-container', uiConfig);		
+							$rootScope.userName = currentUser.displayName;
+
+							console.log($rootScope.user);
+
+							return true;
+						}
+					},
+	  	}
+
+			// Initialize the FirebaseUI Widget using Firebase.
+			var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+			ui.start('#firebaseui-auth-container', uiConfig);
+
   }
 
-
-
 	// login usuario
+	/*
 	$scope.login = function() {
 
 		var rootRef = firebase.database().ref();
@@ -59,18 +77,18 @@ angular.module('AuthController', [])
 
 		var redirect = function()
 		{
-			$location.path('/home');		
+			$location.path('/home');
 		}
 
 		var provider = new firebase.auth.GoogleAuthProvider();
 		auth.signInWithPopup(provider).then(function(result) {
-			
-			// getting token			
-			$rootScope.authTk = result.credential.accessToken;			
+
+			// getting token
+			$rootScope.authTk = result.credential.accessToken;
 			// getting user info
 			$rootScope.user = result.user;
-			$rootScope.auth = true; 			
-			// redirecting 
+			$rootScope.auth = true;
+			// redirecting
 			$location.path('/home');
 			$scope.$apply();
 
@@ -91,15 +109,16 @@ angular.module('AuthController', [])
 
 		$location.path('/home');
 	};
+	*/
 
 	$scope.logout = function() {
 
 		firebase.auth().signOut().then(function() {
   			// Sign-out successful
   			console.log('signOut');
-  			$rootScope.auth = false; 	  			
+  			$rootScope.auth = false;
 
-  		}, function(error) {  			
+  		}, function(error) {
   			// An error happened
   			console.log(error);
   		});
@@ -107,6 +126,8 @@ angular.module('AuthController', [])
 		// AuthenticationService.ClearCredentials();
 
 		$location.path('/login');
+		// $location.path('/someNewPath');
+		$location.replace();
 	};
 
 	//if ($scope.auth !== true) {
