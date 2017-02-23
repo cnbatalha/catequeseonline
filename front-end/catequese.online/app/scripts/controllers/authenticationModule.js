@@ -13,6 +13,16 @@ angular.module('AuthController', [])
 	// reset login status
 	// AuthenticationService.ClearCredentials();
 
+	$scope.showLogin  = function()
+	{
+		return (!$rootScope.auth) || ($rootScope.auth === undefined );
+	}
+
+	$scope.showMenu  = function()
+	{
+		return $rootScope.auth;
+	}
+
 	// firebase configuration
 	var config = {
 		apiKey: "AIzaSyAvlrUUU0j6b5geu0D4gJN1fMuD50Y-yE4",
@@ -25,11 +35,13 @@ angular.module('AuthController', [])
 	if ($rootScope.initialized === undefined)
 	{
 		firebase.initializeApp(config);
+		$rootScope.auth = false;
 		$rootScope.initialized 	= true;
 
+ 		$location.path('#!/login');
 		// FirebaseUI config
 		var uiConfig = {
-			'signInSuccessUrl': '#/home',
+			'signInSuccessUrl': '#!/home',
 			// Terms of service url
 			'tosUrl': '<your-tos-url>',
 			'signInOptions': [
@@ -63,7 +75,6 @@ angular.module('AuthController', [])
 
 			// Initialize the FirebaseUI Widget using Firebase.
 			var ui = new firebaseui.auth.AuthUI(firebase.auth());
-
 			ui.start('#firebaseui-auth-container', uiConfig);
 
   }
@@ -113,10 +124,12 @@ angular.module('AuthController', [])
 
 	$scope.logout = function() {
 
+  	$rootScope.auth = false;
+
 		firebase.auth().signOut().then(function() {
   			// Sign-out successful
   			console.log('signOut');
-  			$rootScope.auth = false;
+
 
   		}, function(error) {
   			// An error happened
@@ -127,7 +140,7 @@ angular.module('AuthController', [])
 
 		$location.path('/login');
 		// $location.path('/someNewPath');
-		$location.replace();
+		//$location.replace();
 	};
 
 	//if ($scope.auth !== true) {

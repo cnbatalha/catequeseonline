@@ -18,15 +18,17 @@
   'ngTouch',
   'ngMap',
   'ui.bootstrap',
-  'catequeseServices', 
+  'catequeseServices',
   'catequeseUtilServices',
   'catequizandoModule',
   'catequistaModule',
-  'turmaModule', 
+  'turmaModule',
   'AuthController',
   'AuthService'
   ])
- .config(function ($routeProvider) {
+ .config(function ($routeProvider,  $locationProvider, $httpProvider) {
+
+   //$locationProvider.hashPrefix('!');
 
   $routeProvider
 
@@ -89,8 +91,8 @@
     templateUrl : 'views/turma/turma.html',
     controller : 'turmaListaController'
   })
-  
-  
+
+
   /*area*/
   .when('/areaList', {
     templateUrl : 'views/area/areaList.html',
@@ -101,6 +103,8 @@
   }).
 
   otherwise('/');
+
+  //$locationProvider.html5Mode(true);
 
 }).controller('home', function($scope, $rootScope) {
 
@@ -121,12 +125,12 @@
     webService.login($scope.credentials.username, $scope.credentials.password).then(function(value) {
       $scope.auth = value;
       if ($scope.auth) {
-        $location.path('/home');
+        $location.path('#/home');
       } else {
-        $location.path('/');
+        $location.path('#/');
       }
     }, function() {
-      $location.path('/');
+      $location.path('#/');
     }, function() {
 
     });
@@ -135,12 +139,12 @@
 
   /*
    * var authenticate = function(callback) {
-   * 
+   *
    * $http.get('user').success(function(data) { if (data.name) {
    * $rootScope.authenticated = true; } else { $rootScope.authenticated =
    * false; } callback && callback(); }).error(function() {
    * $rootScope.authenticated = false; callback && callback(); }); }
-   * 
+   *
    * authenticate(); $scope.credentials = {}; $scope.login = function() {
    * $http.post('login', $.param($scope.credentials), { headers : {
    * "content-type" : "application/x-www-form-urlencoded" }
@@ -150,7 +154,8 @@
    * }).error(function(data) { $location.path("/login"); $scope.error = true;
    * $rootScope.authenticated = false; }) };
 */
-}).run([ '$rootScope', '$location', '$cookieStore', '$http', function($rootScope, $location, $cookieStore, $http) {
+})
+.run([ '$rootScope', '$location', '$cookieStore', '$http', function($rootScope, $location, $cookieStore, $http) {
   // keep user logged in after page refresh
   $rootScope.globals = $cookieStore.get('globals') || {};
   //if ($rootScope.globals.currentUser) {
@@ -158,17 +163,22 @@
     // ignore:line
   //}
 
-  $rootScope.$on('$locationChangeStart', function(event, next, current) {
+  /*$rootScope.$on('$locationChangeStart', function(event, next, current) {
     // redirect to login page if not logged in
     //current = null;
     console.log('AuthTk: ' + $rootScope.authTk);
     console.log('Auth: ' + $rootScope.auth);
-    
-    if ($location.path() !== '/login' && !$rootScope.auth) {
+
+    //if ($location.path() !== '/login' && !$rootScope.auth)
+    if ($rootScope.auth === undefined || !$rootScope.auth) {
       $location.path('/login');
     }
+
   });
-} ]).factory('authHttpResponseInterceptor', [ '$q', '$location', function($q, $location) {
+  */
+
+}])
+.factory('authHttpResponseInterceptor', [ '$q', '$location', function($q, $location) {
   return {
     //console.log($rootScope.authdata);
     response : function(response) {
@@ -183,7 +193,7 @@
         //$location.path('/login').search('returnTo', $location.path());
       }
       return $q.reject(rejection);
-    } 
+    }
   };
 } ]).config([ '$httpProvider', function($httpProvider) {
   // Http Intercpetor to check auth failures for xhr requests

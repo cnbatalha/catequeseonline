@@ -19,25 +19,38 @@
 
 </head>
 <body>
-
+  <base href="/">
 
 
   <div class="col-md-12">
-    <div class="row">
+    <!--div class="row">
       <nav ng-controller="LoginController" ng-show="auth" class="navbar navbar-default">
         <ul class="nav nav-pills">
           <h2>SisCatequese 0.0.2</h2>
         </ul>
       </nav>
+    </div -->
+    <div class="row" ng-controller="LoginController" ng-show="showLogin()" >
+      <div class="col-md-12 col-sx-12">
+        <div class="row">
+      		<div class="jumbotron">
+      			<h2>Catequese OnLine</h2>
+      			<p>Aplicativo para apoiar as atividades dos catequistas da
+      				Paróquia Nossa Senhora da Glória-Manaus
+      			</p>
+      		</div>
+      	</div>
+  			<div id="firebaseui-auth-container"></div>
+  		</div>
     </div>
 
     <div class="row">
-      <div ng-controller="LoginController" ng-show="auth" class="col-md-2">
+      <div ng-controller="LoginController" ng-show="showMenu()" class="col-md-2">
         <div class="btn-group-vertical">
 
           <ul class="nav nav-pills nav-stacked">
             <!-- botao home -->
-            <li role="presentation"><a href="#/home">Painel Principal</a></li>
+            <li role="presentation"><a href="#!/home">Painel Principal</a></li>
             <!-- catequizandos -->
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catequizando <span class="caret"></span>
@@ -45,20 +58,20 @@
               <ul class="dropdown-menu">
                 <li><a>Novo</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#/catequizandolist">Catequizandos</a></li>
-                <li><a href="#/aniversario">Aniversariantes</a></li>
+                <li><a href="#!/catequizandolist">Catequizandos</a></li>
+                <li><a href="#!/aniversario">Aniversariantes</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#/aniversario">Frequência</a></li>
+                <li><a href="/aniversario">Frequência</a></li>
               </ul>
             </li>
             <!-- botao turmas -->
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Turma<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#/turma">Novo</a></li>
+                <li><a href="#!/turma">Novo</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#/turmalist">Turmas</a></li>
-                <li><a href="#/turmamap/0">Mapa</a></li>
+                <li><a href="#!/turmalist">Turmas</a></li>
+                <li><a href="#!/turmamap/0">Mapa</a></li>
               </ul>
             </li>
             <!-- catequisa -->
@@ -73,11 +86,13 @@
       <div class="col-md-10">
         <div ng-view></div>
       </div>
+
     </div>
 
   </div>
 
   <hr>
+
   <footer class="footer">
     <div class="container">
       <p class="text-muted">Paróquia Nossa Senhora da Glória</p>
