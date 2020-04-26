@@ -28,7 +28,8 @@ import { BatismoComponent } from './batismo/batismo.component';
 import { CatequeseComponent } from './catequese/catequese.component';
 import { DizimoCadComponent } from './dizimo-cad/dizimo-cad.component';
 
-import { AngularFireModule } from '@angular/fire';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 @NgModule({
@@ -42,6 +43,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
+    AngularFirestoreModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })

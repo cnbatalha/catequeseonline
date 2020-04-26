@@ -30,6 +30,12 @@
                                         Salary
                                     </th>
                                 </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of lista | async; let i = index" [attr.data-index]="i">
+                                        <td>{{i + 1}}</td>
+                                        <td>{{item.nome}}</td> 
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
