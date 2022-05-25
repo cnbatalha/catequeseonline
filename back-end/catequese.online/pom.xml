@@ -10,7 +10,7 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<org.springframework.version>4.1.0.RELEASE</org.springframework.version>
+		<org.springframework.version>5.2.22.RELEASE</org.springframework.version>
 		<org.springframework.SECURITY.version>3.2.6.RELEASE</org.springframework.SECURITY.version>
 		<appengine.target.version>1.9.17</appengine.target.version>
 	</properties>
